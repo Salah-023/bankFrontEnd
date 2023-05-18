@@ -2,7 +2,7 @@
   <main>
     <div class="flex">
       <div class="w-1/2">
-        <img src="/homepage-cards.png" alt="Image" class="h-full w-full object-contain mt-4 m-5">
+        <img src="/homepage-cards2.png" alt="Image" class="h-full w-full object-contain mt-4 m-5">
       </div>
       <div class="w-1/2 flex flex-col justify-center items-center">
         <div id="homepage-title">
