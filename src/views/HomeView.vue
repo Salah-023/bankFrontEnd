@@ -8,7 +8,7 @@
         <div id="homepage-title">
           <h2 class="text-center" style="font-size: 3.5rem; margin-bottom: 0.5rem;">
             <span style="color: #a33d62;">Smart </span>
-            <span style="color: #39275f;">Banking</span>
+            <span style="color: #39275f;">Banking,</span>
           </h2>
           <h1 style="font-size: 5.5rem; margin-bottom: 2rem; color: #d86f43;">Simplified</h1>
         </div>

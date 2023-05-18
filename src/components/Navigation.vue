@@ -17,8 +17,6 @@
       <div class="text-l lg:flex-grow">
         <router-link to="/" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
           active-class="active">Home</router-link>
-        <router-link to="/about" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-          active-class="active">About us</router-link>
       </div>
       <div>
         <router-link to="/login" class="inline-block text-l px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 mt-4 lg:mt-0"
