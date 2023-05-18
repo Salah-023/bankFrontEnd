@@ -18,7 +18,7 @@
 
       </div>
     </div>
-    <div class="text-center mx-5 my-5 p-4 rounded-lg" style="background-color: #d0f1ed; color: #39275f;">
+    <div id="homepage-description" class="text-center p-4 rounded-lg" style="background-color: #d0f1ed; color: #39275f;">
   <h2 class="mb-4 font-bold" style="font-size: 1.5rem;">Our Priority: Keeping Your Money Safe</h2>
   <p class="px-5">At Inholland Bank, we understand the importance of your hard-earned money and the trust you place in us to keep it secure. With our robust security measures and advanced technology, we are committed to providing you with peace of mind when it comes to your finances.</p>
 </div>
