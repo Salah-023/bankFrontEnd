@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import EditProfileView from '../views/EditProfileView.vue'
+import UserListView from '../views/employeeViews/UserListView.vue'
+import BankAccountListView from '../views/employeeViews/BankAccountListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +28,16 @@ const router = createRouter({
       path :'/editProfile',
       name :'editProfile',
       component: EditProfileView
+    },
+    {
+      path :'/userList',
+      name :'userList',
+      component: UserListView
+    },
+    {
+      path :'/bankAccountList',
+      name :'bankAccountList',
+      component: BankAccountListView
     }
   ]
 })
