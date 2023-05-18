@@ -21,7 +21,7 @@
           active-class="active">About us</router-link>
       </div>
       <div>
-        <router-link to="/login" class="inline-block text-l px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+        <router-link to="/login" class="inline-block text-l px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 mt-4 lg:mt-0"
           active-class="active">Log in</router-link>
       </div>
     </div>
@@ -30,7 +30,7 @@
   
 <script >
 export default {
-  name: "Navigation",
+  name: "NavigationBar",
 };
 </script>
   

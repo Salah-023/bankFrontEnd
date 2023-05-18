@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 body {
   font-family: 'Quicksand', sans-serif;
+  background-color: #f7f7f7;
 }
 
 h1,
 h2 {
   font-weight: 700;
+}
+
+#homepage-title {
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Product cards */
@@ -53,3 +62,9 @@ h2 {
 .fa-brands:hover {
   color: #929292;
 }
+
+#website-footer{
+  background-color: #14b8a6;
+}
+
+
