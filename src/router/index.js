@@ -46,7 +46,7 @@ const router = createRouter({
       name :'users',
       component: UserList
     },{
-      path:'/editUser/:email',
+      path:'/editUser/:id',
       name : 'editUser',
       component: EditUser ,
       props: true

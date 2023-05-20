@@ -12,7 +12,7 @@
                 <table class="min-w-full bg-white border border-gray-300">
                     <thead>
                         <tr>
-                            <!-- <th class="py-2 px-4 border-b">User ID</th> -->
+                            <th class="py-2 px-4 border-b">User ID</th>
                             <th class="py-2 px-4 border-b">E-mail</th>
                             <th class="py-2 px-4 border-b">First Name</th>
                             <th class="py-2 px-4 border-b">Last Name</th>

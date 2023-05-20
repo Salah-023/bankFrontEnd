@@ -60,11 +60,12 @@ import axios from '../../axios-auth';
 export default {
     name: "EditUser",
     props: {
-        email: String,
+        id: String,
     },
     data() {
         return {
             user: {
+                id :"",
                 email: "",
                 firstName: "",
                 lastName: "",
@@ -77,7 +78,7 @@ export default {
     methods: {
         updateUser() {
             axios
-                .put("/users/email/" + this.user.email, this.user)
+                .put("/users/" + this.user.id, this.user)
                 .then((res) => {
                     console.log(res.data);
                     this.$refs.form.reset();
@@ -88,7 +89,7 @@ export default {
     },
     mounted() {
         axios
-            .get("users/email/" + this.email)
+            .get("users/" + this.id)
             .then((result) => {
                 console.log(result);
                 this.user = result.data;
