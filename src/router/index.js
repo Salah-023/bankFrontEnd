@@ -5,6 +5,8 @@ import RegisterView from '../views/RegisterView.vue'
 import EditProfileView from '../views/EditProfileView.vue'
 import UserListView from '../views/employeeViews/UserListView.vue'
 import BankAccountListView from '../views/employeeViews/BankAccountListView.vue'
+import UserList from '../components/users/UserList.vue'
+import EditUser from '../components/users/EditUser.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,16 @@ const router = createRouter({
       path :'/bankAccountList',
       name :'bankAccountList',
       component: BankAccountListView
+    },
+    {
+      path :'/users',
+      name :'users',
+      component: UserList
+    },{
+      path:'/editUser/:id',
+      name : 'editUser',
+      component: EditUser ,
+      props: true
     }
   ]
 })
