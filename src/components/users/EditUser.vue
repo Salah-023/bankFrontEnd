@@ -1,51 +1,56 @@
 <template>
     <div class="mt-10 sm:mt-0">
         <form ref="form">
-            <div class="shadow overflow-hidden sm:rounded-md">
-                <div class="px-4 py-5 bg-white sm:p-6">
-                    <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="first_name" class="block text-sm font-medium text-gray-700">First
-                                name</label>
-                            <input type="text" name="first_name" id="first_name" autocomplete="given-name"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="user.firstName">
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="last_name" class="block text-sm font-medium text-gray-700">Last name</label>
-                            <input type="text" name="last_name" id="last_name" autocomplete="family-name"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="user.lastName">
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="Email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="text" name="Email" id="Email" autocomplete="given-name"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="user.email">
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="phone_number" class="block text-sm font-medium text-gray-700">phone number</label>
-                            <input type="text" name="phone_number" id="phone_number" autocomplete="family-number"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="user.phone">
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                            <label for="day_limit" class="block text-sm font-medium text-gray-700">Day limit</label>
+            <div class="overflow-hidden sm:rounded-md">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="col-span-6 sm:col-span-3 mb-4">
+                        <label for="first_name" class="block text-sm font-medium text-gray-700">First name</label>
+                        <input type="text" name="first_name" id="first_name" autocomplete="given-name"
+                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-2/3 md:w-1/2 lg:w-1/5 px-3 py-2 border-gray-300 rounded-md"
+                            v-model="user.firstName">
+                    </div>
+                    <div class="col-span-6 sm:col-span-3 mb-4">
+                        <label for="last_name" class="block text-sm font-medium text-gray-700">Last name</label>
+                        <input type="text" name="last_name" id="last_name" autocomplete="family-name"
+                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-2/3 md:w-1/2 lg:w-1/5 px-3 py-2 border-gray-300 rounded-md"
+                            v-model="user.lastName">
+                    </div>
+                    <div class="col-span-6 sm:col-span-3 mb-4">
+                        <label for="Email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="text" name="Email" id="Email" autocomplete="given-name"
+                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-2/3 md:w-1/2 lg:w-1/5 px-3 py-2 border-gray-300 rounded-md"
+                            v-model="user.email">
+                    </div>
+                    <div class="col-span-6 sm:col-span-3 mb-4">
+                        <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="text" name="phone_number" id="phone_number" autocomplete="family-number"
+                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-2/3 md:w-1/2 lg:w-1/5 px-3 py-2 border-gray-300 rounded-md"
+                            v-model="user.phone">
+                    </div>
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-2 mb-4">
+                        <label for="day_limit" class="block text-sm font-medium text-gray-700">Day limit</label>
+                        <div class="flex">
                             <input type="text" name="day_limit" id="day_limit"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="user.dayLimit">
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-1/2 md:w-1/3 lg:w-1/12 px-3 py-2 border-gray-300 rounded-md"
+                                v-model="user.dayLimit">
+                            <span class="flex items-center ml-2 text-gray-600">€</span>
                         </div>
-
-                        <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                            <label for="transaction_Limit" class="block text-sm font-medium text-gray-700">Transaction
-                                Limit</label>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                        <label for="transaction_Limit" class="block text-sm font-medium text-gray-700">Transaction
+                            Limit</label>
+                        <div class="flex">
                             <input type="text" name="transaction_Limit" id="transaction_Limit"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="user.transactionLimit">
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-1/2 md:w-1/3 lg:w-1/12 px-3 py-2 border-gray-300 rounded-md"
+                                v-model="user.transactionLimit">
+                            <span class="flex items-center ml-2 text-gray-600">€</span>
                         </div>
-
                     </div>
                 </div>
-                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <div class="px-4 text-left sm:px-6 mb-5">
                     <button type="button" @click="updateUser"
-                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        class="inline-flex justify-center py-2 px-4 text-sm font-medium rounded-md text-white"
+                        style="background-color: #14b8a6; hover: background-color: #14b8a6; focus: ring-2 ring-offset-2 ring-#14b8a6; margin-bottom: 1rem;">
                         Save
                     </button>
                 </div>
@@ -53,6 +58,7 @@
         </form>
     </div>
 </template>
+  
   
 <script>
 import axios from '../../axios-auth';
@@ -65,13 +71,13 @@ export default {
     data() {
         return {
             user: {
-                id :"",
+                id: "",
                 email: "",
                 firstName: "",
                 lastName: "",
                 phone: "",
                 dayLimit: 0.0,
-                transactionLimit : 0.0
+                transactionLimit: 0.0
             }
         };
     },
