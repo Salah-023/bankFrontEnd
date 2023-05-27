@@ -9,6 +9,7 @@ export default {
     FooterBar
   }
 };
+
 </script>
 
 <template>
