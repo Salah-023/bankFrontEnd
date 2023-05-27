@@ -3,10 +3,11 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import EditProfileView from '../views/EditProfileView.vue'
-import UserListView from '../views/employeeViews/UserListView.vue'
 import BankAccountListView from '../views/employeeViews/BankAccountListView.vue'
-import UserList from '../components/users/UserList.vue'
+import UserListView from '../views/employeeViews/UserListView.vue'
 import EditUser from '../components/users/EditUser.vue'
+import EditBankAccount from '../views/employeeViews/EditBankAccount.vue'
+import CustomerDashboardView from '../views/customerViews/CustomerDashboardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,24 +33,30 @@ const router = createRouter({
       component: EditProfileView
     },
     {
-      path :'/userList',
-      name :'userList',
-      component: UserListView
-    },
-    {
       path :'/bankAccountList',
       name :'bankAccountList',
       component: BankAccountListView
+    }
+    ,{
+      path:'/editBankAccount/:id',
+      name : 'editBankAccount',
+      component: EditBankAccount ,
+      props: true
     },
     {
       path :'/users',
       name :'users',
-      component: UserList
+      component: UserListView
     },{
       path:'/editUser/:id',
       name : 'editUser',
       component: EditUser ,
       props: true
+    },
+    {
+      path :'/customerDashboard',
+      name :'customerDashboard',
+      component: CustomerDashboardView
     }
   ]
 })

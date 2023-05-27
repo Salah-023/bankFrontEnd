@@ -7,7 +7,8 @@
         <td class="py-2 px-4 border-b">{{ user.phone }}</td>
         <td class="py-2 px-4 border-b">{{ user.dayLimit }}</td>
         <td class="py-2 px-4 border-b">{{ user.transactionLimit }}</td>
-        <td class="py-2 px-4 border-b">{{ user.roles }}</td>
+        <td class="py-2 px-4 border-b">{{ user.roles.join(', ') }}</td>
+
         <td class="py-2 px-4 border-b">{{ getCurrentAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">{{ getSavingsAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">
