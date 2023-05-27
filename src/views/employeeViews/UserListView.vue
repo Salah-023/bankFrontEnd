@@ -2,6 +2,12 @@
     <main>
         <div class="container mx-auto py-8">
             <h2 class="text-2xl font-bold mb-4">Inholland Bank User List</h2>
+            <div class="flex justify-end mb-4">
+                <label class="flex items-center">
+                    <input type="checkbox" v-model="filterWithoutBankAccounts" @change="applyFilter">
+                    <span class="ml-2">Filter Users without Bank Accounts</span>
+                </label>
+            </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-300">
                     <thead>
@@ -21,43 +27,59 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in users" :key="user.userId">
-                            <td class="py-2 px-4 border-b">{{ user.userId }}</td>
-                            <td class="py-2 px-4 border-b">{{ user.email }}</td>
-                            <td class="py-2 px-4 border-b">{{ user.firstName }}</td>
-                            <td class="py-2 px-4 border-b">{{ user.lastName }}</td>
-                            <td class="py-2 px-4 border-b">{{ user.phoneNumber }}</td>
-                            <td class="py-2 px-4 border-b">{{ user.dayLimit }}</td>
-                            <td class="py-2 px-4 border-b">{{ user.transactionLimit }}</td>
-                            <td class="py-2 px-4 border-b">{{ user.role }}</td>
-                            <td class="py-2 px-4 border-b">{{ user.currentAccountIBAN }}</td>
-                            <td class="py-2 px-4 border-b">{{ user.savingsAccountIBAN }}</td>
-                            <td class="py-2 px-4 border-b">
-                                <button class="text-blue-500 hover:text-blue-700">Edit</button>
-                            </td>
-                            <td class="py-2 px-4 border-b">
-                                <button class="text-red-500 hover:text-red-700">Delete</button>
-                            </td>
-                        </tr>
+                        <user-list-item v-for="user in users" :key="user.firstName" :user='user' @update="update" />
+
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
 </template>
-
+  
 <script>
+import axios from '../../axios-auth';
+
+import UserListItem from '../../components/users/UserListItem.vue';
+
 export default {
-    name: "UsersList",
+    name: 'UserList',
+    components: {
+        UserListItem,
+    },
     data() {
         return {
-            users: [
-                { userId: "1", email: "john@email.com", firstName: "John", lastName: "Doe", phoneNumber: "3168457645", dayLimit: "500.00", transactionLimit: "1000.00", role: "Customer", currentAccountIBAN: "XXX", savingsAccountIBAN: "YYY" },
-                { userId: "2", email: "emma@email.com", firstName: "Emma", lastName: "Tyler", phoneNumber: "3134357645", dayLimit: "500.00", transactionLimit: "1000.00", role: "Customer", currentAccountIBAN: "XXX", savingsAccountIBAN: "YYY" },
-                { userId: "3", email: "jane@email.com", firstName: "Jane", lastName: "Smith", phoneNumber: "3168787645", dayLimit: "500.00", transactionLimit: "1000.00", role: "Customer", currentAccountIBAN: "XXX", savingsAccountIBAN: "YYY" }
-            ]
+            users: [],
         };
     },
+    mounted() {
+        this.update();
+    },
+    methods: {
+        update() {
+            axios
+                .get("users")
+                .then((result) => {
+                    console.log(result);
+                    this.users = result.data;
+                })
+                .catch((error) => console.log(error));
+        },
+        applyFilter() {
+            if (this.filterWithoutBankAccounts) {
+                axios
+                    .get("users?hasAccount=false")
+                    .then((result) => {
+                        console.log(result);
+                        this.users = result.data;
+                    })
+                    .catch((error) => console.log(error));
+            } else {
+                this.update();
+            }
+        }
 
+    },
 };
 </script>
+  
+<style></style>

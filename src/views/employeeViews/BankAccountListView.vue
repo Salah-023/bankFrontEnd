@@ -1,86 +1,78 @@
 <template>
-    <div class="container mx-auto py-8">
-        <h2 class="text-2xl font-bold mb-4">Bank Accounts</h2>
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-300">
-                <thead>
-                    <tr>
-                        <th class="py-2 px-4 border-b">IBAN</th>
-                        <th class="py-2 px-4 border-b">User ID</th>
-                        <th class="py-2 px-4 border-b">User First Name</th>
-                        <th class="py-2 px-4 border-b">User Last Name</th>
-                        <th class="py-2 px-4 border-b">Account Type</th>
-                        <th class="py-2 px-4 border-b">Balance</th>
-                        <th class="py-2 px-4 border-b">Absolute Limit</th>
-                        <th class="py-2 px-4 border-b">Status</th>
-                        <th class="py-2 px-4 border-b"></th>
-                        <th class="py-2 px-4 border-b"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="account in bankAccounts" :key="account.iban">
-                        <td class="py-2 px-4 border-b">{{ account.iban }}</td>
-                        <td class="py-2 px-4 border-b">{{ account.userId }}</td>
-                        <td class="py-2 px-4 border-b">{{ account.userFirstName }}</td>
-                        <td class="py-2 px-4 border-b">{{ account.userLastName }}</td>
-                        <td class="py-2 px-4 border-b">{{ account.accountType }}</td>
-                        <td class="py-2 px-4 border-b">{{ account.balance }}</td>
-                        <td class="py-2 px-4 border-b">{{ account.absoluteLimit }}</td>
-                        <td class="py-2 px-4 border-b">{{ account.status }}</td>
-                        <td class="py-2 px-4 border-b">
-                            <button class="text-blue-500 hover:text-blue-700">Edit</button>
-                        </td>
-                        <td class="py-2 px-4 border-b">
-                            <button class="text-red-500 hover:text-red-700">Deactivate</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <main>
+        <div class="container mx-auto py-8">
+            <h2 class="text-2xl font-bold mb-4">Inholland Bank Accounts List</h2>
+            <div class="flex justify-end mb-4">
+                <label class="flex items-center">
+                    <input type="checkbox" v-model="showOnlyActiveBankAccounts" @change="applyFilter">
+                    <span class="ml-2">Show Only Active Bank Accounts</span>
+                </label>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">IBAN</th>
+                            <th class="py-2 px-4 border-b">Belongs To</th>
+                            <th class="py-2 px-4 border-b">Limit</th>
+                            <th class="py-2 px-4 border-b">Balance</th>
+                            <th class="py-2 px-4 border-b">Type</th>
+                            <th class="py-2 px-4 border-b">Status</th>
+                            <th class="py-2 px-4 border-b"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <bankAccount-list-item v-for="bankAccount in bankAccounts" :key="bankAccount.iban" :bankAccount='bankAccount' @update="update" />
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    </main>
 </template>
   
 <script>
+import axios from '../../axios-auth';
+
+import BankAccountListItem from '../../components/bankAccounts/BankAccountListItem.vue';
+
 export default {
-    name: "BankAccountsList",
+    name: 'BankAccountList',
+    components: {
+        BankAccountListItem,
+    },
     data() {
         return {
-            bankAccounts: [
-                {
-                    iban: "ABC123",
-                    userId: "1",
-                    userFirstName: "John",
-                    userLastName: "Doe",
-                    accountType: "Savings",
-                    balance: "1000.00",
-                    absoluteLimit: "5000.00",
-                    status: "Active",
-                },
-                {
-                    iban: "ABC123",
-                    userId: "1",
-                    userFirstName: "John",
-                    userLastName: "Doe",
-                    accountType: "Current",
-                    balance: "150.00",
-                    absoluteLimit: "5000.00",
-                    status: "Active",
-                },
-                {
-                    iban: "XYZ789",
-                    userId: "2",
-                    userFirstName: "Emma",
-                    userLastName: "Tyler",
-                    accountType: "Current",
-                    balance: "2000.00",
-                    absoluteLimit: "10000.00",
-                    status: "Active",
-                },
-                // Add more bank accounts here...
-            ],
+            bankAccounts: [],
         };
+    },
+    mounted() {
+        this.update();
+    },
+    methods: {
+        update() {
+            axios
+                .get("bankAccounts")
+                .then((result) => {
+                    console.log(result);
+                    this.bankAccounts = result.data;
+                })
+                .catch((error) => console.log(error));
+        },
+        /*applyFilter() {
+            if (this.filterWithoutBankAccounts) {
+                axios
+                    .get("users?hasAccount=false")
+                    .then((result) => {
+                        console.log(result);
+                        this.users = result.data;
+                    })
+                    .catch((error) => console.log(error));
+            } else {
+                this.update();
+            }
+        }*/
     },
 };
 </script>
   
-  
+<style></style>
