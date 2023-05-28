@@ -15,7 +15,7 @@ export const userStore = defineStore('userStore', {
                 this.jwt = localStorage["jwt"];
             }
         },
-        loging(username, password) {
+        login(username, password) {
             axios.post("auth/login", {
                 username: username,
                 password: password

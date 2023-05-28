@@ -31,7 +31,7 @@
             class="flex w-full justify-center rounded-md bg-teal-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500">Sign
             in</button>
 
-          
+
         </div>
       </form>
       <p class="mt-10 text-center text-sm text-gray-500">
@@ -45,8 +45,8 @@
 </template>
 
 <script >
-// import axios from '../axios-auth';
-import {userStore} from '../stores/user.js';
+import axios from '../axios-auth';
+import { userStore } from '../stores/user.js';
 export default {
   name: 'LoginView',
   data() {
@@ -57,26 +57,20 @@ export default {
     };
   },
   methods: {
+  
     login() {
-      this.store.loging(this.username, this.password).then(() => {
-        this.$router.replace("/users");
+      axios.post("auth/login", {
+        username: this.username,
+        password: this.password,
       })
-        .catch((error) => {
-          this.errorMessage = error;
-        });
-    //   axios.post("auth/login", {
-    //     username: this.username,
-    //     password: this.password,
-    //     store: userStore()
-    //   })
-    //     .then((res) => {
-    //       console.log(res);
-    //       alert(res.data.token);
-
-    //     })
-    //     .catch((error) => console.log(error));
-     }
-  }
-}
+        .then((res) => {
+          console.log(res.data.token);
+          const token = res.data.token;
+           localStorage.setItem('token', token); // Store the token in local storage
+           localStorage.setItem('username', this.username); // Store the username in local storage
+        })
+        .catch((error) => console.log(error));
+    }
+  }}
 </script>
 

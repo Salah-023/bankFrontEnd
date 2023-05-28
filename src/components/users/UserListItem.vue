@@ -42,7 +42,11 @@ export default {
         },
         deleteUser(id) {
             axios
-                .delete("users/"+ id)
+                .delete("users/"+ id, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
                 .then((result) => {
                     console.log(result);
                     this.$emit('update')

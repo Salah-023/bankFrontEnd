@@ -40,6 +40,7 @@
 import axios from '../../axios-auth';
 
 import UserListItem from './UserListItem.vue';
+const token = localStorage.getItem('token');
 
 export default {
     name: 'UserList',
@@ -57,7 +58,11 @@ export default {
     methods: {
         update() {
             axios
-                .get("users")
+                .get("users", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
                 .then((result) => {
                     console.log(result);
                     this.users = result.data;
@@ -67,7 +72,11 @@ export default {
         applyFilter() {
             if (this.filterWithoutBankAccounts) {
                 axios
-                    .get("users?hasAccount=false")
+                    .get("users?hasAccount=false", {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
                     .then((result) => {
                         console.log(result);
                         this.users = result.data;

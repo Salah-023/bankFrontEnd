@@ -62,6 +62,7 @@
   
 <script>
 import axios from '../../axios-auth';
+const token = localStorage.getItem('token');
 
 export default {
     name: "EditUser",
@@ -84,7 +85,11 @@ export default {
     methods: {
         updateUser() {
             axios
-                .put("/users/" + this.user.id, this.user)
+                .put("/users/" + this.user.id, this.user, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
                 .then((res) => {
                     console.log(res.data);
                     this.$refs.form.reset();
@@ -95,7 +100,11 @@ export default {
     },
     mounted() {
         axios
-            .get("users/" + this.id)
+            .get("users/" + this.id, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
             .then((result) => {
                 console.log(result);
                 this.user = result.data;
