@@ -24,6 +24,8 @@
   
 <script>
 import axios from '../../axios-auth';
+const token = localStorage.getItem('token');
+
 export default {
     name: "UserListItem",
     props: {
