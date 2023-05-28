@@ -5,7 +5,7 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="#" method="POST">
+            <form class="space-y-6" >
                 <div>
                     <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
                     <div class="mt-2">
@@ -62,7 +62,7 @@
                 </div>
 
                 <div>
-                    <button type="submit"
+                    <button @click="register" type="button"
                         class="flex w-full justify-center rounded-md bg-teal-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500">Create
                         Account</button>
                 </div>
@@ -73,13 +73,37 @@
                 {{ ' ' }}
                 <router-link to="/login" class="font-semibold leading-6 text-teal-600 hover:text-teal-500"
                     active-class="active">Click here to login</router-link>
-        </p>
+            </p>
+        </div>
     </div>
-</div></template>
+</template>
 
 <script>
 export default {
-    name: 'RegisterView'
+    name: 'RegisterView',
+    data() {
+        return {
+            email: '',
+            firstName: '',
+            lastName: '',
+            phone: '',
+            password: ''
+        };
+    }, methods: {
+        register() {
+            axios.post("auth/register", {
+                email: this.username,
+                password: this.password,
+                firstName: this.firstName,
+                lastName: this.lastName,
+                phone: this.phone
+            })
+                .then((res) => {
+                    this.$router.push('/login');
+                })
+                .catch((error) => console.log(error));
+        }
+    }
 }
 </script>
 
