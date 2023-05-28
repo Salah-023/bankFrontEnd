@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
-import EditProfileView from '../views/EditProfileView.vue'
+import EditProfileView from '../views/customerViews/EditProfileView.vue'
 import BankAccountListView from '../views/employeeViews/BankAccountListView.vue'
 import UserListView from '../views/employeeViews/UserListView.vue'
-import EditUser from '../components/users/EditUser.vue'
-import EditBankAccount from '../views/employeeViews/EditBankAccount.vue'
+import EditUserView from '../views/employeeViews/EditUserView.vue'
+import EditBankAccountView from '../views/employeeViews/EditBankAccountView.vue'
 import CustomerDashboardView from '../views/customerViews/CustomerDashboardView.vue'
 
 const router = createRouter({
@@ -40,7 +40,7 @@ const router = createRouter({
     ,{
       path:'/editBankAccount/:id',
       name : 'editBankAccount',
-      component: EditBankAccount ,
+      component: EditBankAccountView ,
       props: true
     },
     {
@@ -50,7 +50,7 @@ const router = createRouter({
     },{
       path:'/editUser/:id',
       name : 'editUser',
-      component: EditUser ,
+      component: EditUserView ,
       props: true
     },
     {

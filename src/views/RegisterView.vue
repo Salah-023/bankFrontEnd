@@ -10,8 +10,8 @@
                     <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
                     <div class="mt-2">
                         <input id="firstName" name="firstName" type="text" autocomplete="firstName" required=""
-                            placeholder="   First Name"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            placeholder="First Name"
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
                     </div>
                 </div>
 
@@ -19,8 +19,8 @@
                     <label for="lastName" class="block text-sm font-medium leading-6 text-gray-900">Last Name</label>
                     <div class="mt-2">
                         <input id="lastName" name="lastName" type="text" autocomplete="lastName" required=""
-                            placeholder="   Last Name"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            placeholder="Last Name"
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
                     </div>
                 </div>
 
@@ -28,8 +28,8 @@
                     <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                     <div class="mt-2">
                         <input id="email" name="email" type="email" autocomplete="email" required=""
-                            placeholder="    example@email.com"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            placeholder="example@email.com"
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
                     </div>
                 </div>
 
@@ -37,8 +37,8 @@
                     <label for="phoneNumber" class="block text-sm font-medium leading-6 text-gray-900">Phone Number</label>
                     <div class="mt-2">
                         <input id="phoneNumber" name="phoneNumber" type="tel" autocomplete="tel" required=""
-                            placeholder="   +31 0 00000000"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            placeholder="+31 0 00000000"
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
                     </div>
                 </div>
 
@@ -46,8 +46,8 @@
                     <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
                     <div class="mt-2">
                         <input id="password" name="password" type="password" autocomplete="new-password" required=""
-                            placeholder="   ***********"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            placeholder="***********"
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
                     </div>
                 </div>
 
@@ -56,8 +56,8 @@
                         Password</label>
                     <div class="mt-2">
                         <input id="confirm_password" name="confirm_password" type="password" autocomplete="new-password"
-                            required="" placeholder="   ***********"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            required="" placeholder="***********"
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
                     </div>
                 </div>
 
