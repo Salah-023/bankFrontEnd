@@ -64,7 +64,6 @@
   
 <script>
 import axios from '../../axios-auth';
-const token = localStorage.getItem('token');
 
 export default {
     name: "EditUser",
@@ -86,6 +85,7 @@ export default {
     },
     methods: {
         updateUser() {
+            const token = localStorage.getItem('token');
             axios
                 .put("/users/" + this.user.id, this.user, {
                     headers: {
@@ -101,6 +101,7 @@ export default {
         },
     },
     mounted() {
+        const token = localStorage.getItem('token');
         axios
             .get("users/" + this.id, {
                     headers: {
@@ -112,7 +113,6 @@ export default {
                 this.user = result.data;
             })
             .catch((error) => console.log(error));
-
     },
 };
 </script>

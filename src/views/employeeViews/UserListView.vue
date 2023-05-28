@@ -40,8 +40,6 @@
 import axios from '../../axios-auth';
 import UserListItem from '../../components/users/UserListItem.vue';
 
-const token = localStorage.getItem('token');
-
 export default {
     name: 'UserList',
     components: {
@@ -57,6 +55,7 @@ export default {
     },
     methods: {
         update() {
+            const token = localStorage.getItem('token');
             axios
                 .get("users", {
                     headers: {
@@ -70,6 +69,7 @@ export default {
                 .catch((error) => console.log(error));
         },
         applyFilter() {
+            const token = localStorage.getItem('token');
             if (this.filterWithoutBankAccounts) {
                 axios
                     .get("users?hasAccount=false", {

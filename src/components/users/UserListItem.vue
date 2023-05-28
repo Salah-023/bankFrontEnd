@@ -24,7 +24,6 @@
   
 <script>
 import axios from '../../axios-auth';
-const token = localStorage.getItem('token');
 
 export default {
     name: "UserListItem",
@@ -44,6 +43,7 @@ export default {
             this.$router.push('/editUser/' + id);
         },
         deleteUser(id) {
+            const token = localStorage.getItem('token');
             axios
                 .delete("users/"+ id, {
                     headers: {
