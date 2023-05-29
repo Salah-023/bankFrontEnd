@@ -1,6 +1,5 @@
 <template>
     <tr>
-        <td class="py-2 px-4 border-b">{{ user.id }}</td>
         <td class="py-2 px-4 border-b">{{ user.email }}</td>
         <td class="py-2 px-4 border-b">{{ user.firstName }}</td>
         <td class="py-2 px-4 border-b">{{ user.lastName }}</td>
@@ -12,9 +11,10 @@
         <td class="py-2 px-4 border-b">{{ getCurrentAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">{{ getSavingsAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">
+            <button v-if="hasNoBankAccounts" class="text-green-500 hover:text-green-700" >Create B.A</button>
+        </td>
+        <td class="py-2 px-4 border-b">
             <button class="text-blue-500 hover:text-blue-700" @click="editUser(user.id)">Edit</button>&nbsp;&nbsp;
-            <!-- <router-link to="/editUser" class="text-blue-500 hover:text-blue-700" active-class="active">Edit</router-link> -->
-
         </td>
         <td class="py-2 px-4 border-b">
             <button v-if="hasNoBankAccounts" class="text-red-500 hover:text-red-700" @click="deleteUser(user.id)">Delete</button>
