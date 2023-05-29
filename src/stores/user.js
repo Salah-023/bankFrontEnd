@@ -30,7 +30,12 @@ export const userStore = defineStore('userStore', {
                 })
                     .catch((error) => reject(error));
             })
-
+        },
+        logout() {
+            this.token = '';
+            this.username = '';
+            localStorage.removeItem('username');
+            localStorage.removeItem('token');
         }
     }
 });

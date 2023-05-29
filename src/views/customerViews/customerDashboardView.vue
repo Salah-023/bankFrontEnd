@@ -4,10 +4,9 @@
             <div class="flex items-center justify-between">
                 <p class="text-4xl font-bold mx-5" style="margin-top: 7rem;">Welcome to Inholland Bank, {{ user.firstName }}
                     {{ user.lastName }}</p>
-                <button class="bg-white hover:bg-teal-500 text-teal-700 text-teal font-bold py-2 px-4 rounded"
-                    style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                    Edit Profile
-                </button>
+                
+                <router-link to="/editProfile" class="bg-white hover:bg-teal-500 text-teal-700 text-teal font-bold py-2 px-4 rounded"
+                    active-class="active">Edit Profile</router-link>
             </div>
             <div class="grid grid-cols-3 gap-4 my-5">
                 <div class="col-span-2">

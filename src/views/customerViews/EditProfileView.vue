@@ -7,12 +7,13 @@
             </div>
 
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form class="space-y-6" action="#" method="POST">
+                <form ref="form" class="space-y-6">
                     <div>
                         <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
                         <div class="mt-2">
                             <input id="firstName" name="firstName" type="text" autocomplete="firstName" required=""
-                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                                v-model="user.firstName" />
                         </div>
                     </div>
 
@@ -20,7 +21,8 @@
                         <label for="lastName" class="block text-sm font-medium leading-6 text-gray-900">Last Name</label>
                         <div class="mt-2">
                             <input id="lastName" name="lastName" type="text" autocomplete="lastName" required=""
-                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                                v-model="user.lastName" />
                         </div>
                     </div>
 
@@ -29,7 +31,8 @@
                             Number</label>
                         <div class="mt-2">
                             <input id="phoneNumber" name="phoneNumber" type="tel" autocomplete="tel" required=""
-                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                                v-model="user.phone" />
                         </div>
                     </div>
 
@@ -37,7 +40,8 @@
                         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                         <div class="mt-2">
                             <input id="email" name="email" type="email" autocomplete="email" required=""
-                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                                v-model="user.email" />
                         </div>
                     </div>
 
@@ -45,7 +49,8 @@
                         <label for="password" class="block text-sm font-medium leading-6 text-gray-900">New Password</label>
                         <div class="mt-2">
                             <input id="password" name="password" type="password" autocomplete="new-password" required=""
-                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                                class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                                v-model="user.password" />
                         </div>
                     </div>
 
@@ -53,14 +58,14 @@
                         <label for="passwordAgain" class="block text-sm font-medium leading-6 text-gray-900">Confirm New
                             Password</label>
                         <div class="mt-2">
-                            <input id="passwordAgain" name="passwordAgain" type="password"
-                                autocomplete="new-passwordAgain" required=""
+                            <input id="passwordAgain" name="passwordAgain" type="password" autocomplete="new-passwordAgain"
+                                required=""
                                 class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
                         </div>
                     </div>
 
                     <div style="display: flex; justify-content: center;">
-                        <button type="submit"
+                        <button @click="updateUser" type="button"
                             class="rounded-md bg-teal-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500">
                             Save Changes
                         </button>
@@ -72,6 +77,58 @@
 </template>
   
 <script>
+import axios from '../../axios-auth';
 
+export default {
+    name: "EditProfileView",
+    props: {
+        id: String,
+    },
+    data() {
+        return {
+            user: {
+                id: "",
+                email: "",
+                firstName: "",
+                lastName: "",
+                phone: "",
+                password: "",
+                dayLimit: 0.0,
+                transactionLimit: 0.0
+            }
+        };
+    },
+    methods: {
+        updateUser() {
+            const token = localStorage.getItem('token');
+            axios
+                .put("/users/" + this.user.id, this.user, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    this.$refs.form.reset();
+                    this.$router.push("/customerDashboard");
+                })
+                .catch((error) => console.log(error));
+        },
+    },
+    mounted() {
+        const token = localStorage.getItem('token');
+        axios
+            .get("users/email/" + localStorage.getItem('username'), {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((result) => {
+                console.log(result);
+                this.user = result.data;
+            })
+            .catch((error) => console.log(error));
+    }
+};
 </script>
   

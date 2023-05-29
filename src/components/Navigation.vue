@@ -1,8 +1,7 @@
 <template>
-    
   <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
     <div class="flex items-center flex-shrink-0 text-white mr-6">
-      
+
     </div>
     <div class="block lg:hidden">
       <button
@@ -19,7 +18,11 @@
           active-class="active">Home</router-link>
       </div>
       <div>
-        <router-link to="/login" class="inline-block text-l px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 mt-4 lg:mt-0"
+        <button v-if="isLoggedIn" type="button" @click="logout"
+          class="inline-block text-l px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 mt-4 lg:mt-0"
+          active-class="active">Logout</button>
+        <router-link v-else to="/login"
+          class="inline-block text-l px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 mt-4 lg:mt-0"
           active-class="active">Log in</router-link>
       </div>
     </div>
@@ -27,8 +30,25 @@
 </template>
   
 <script >
+import { userStore } from '../stores/user.js';
 export default {
   name: "NavigationBar",
+  data() {
+    return {
+      store: userStore()
+    };
+  }, computed: {
+    isLoggedIn() {
+      return this.store.getToken != '';
+    }
+  },
+  methods: {
+    logout() {
+      this.store.logout();
+      this.$router.push('/');
+
+    }
+  }
 };
 </script>
   
