@@ -5,13 +5,13 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="#" method="POST">
+            <form class="space-y-6" >
                 <div>
-                    <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
+                    <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900"  >First Name</label>
                     <div class="mt-2">
                         <input id="firstName" name="firstName" type="text" autocomplete="firstName" required=""
                             placeholder="First Name"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="firstName"/>
                     </div>
                 </div>
 
@@ -20,7 +20,7 @@
                     <div class="mt-2">
                         <input id="lastName" name="lastName" type="text" autocomplete="lastName" required=""
                             placeholder="Last Name"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="lastName"/>
                     </div>
                 </div>
 
@@ -29,7 +29,7 @@
                     <div class="mt-2">
                         <input id="email" name="email" type="email" autocomplete="email" required=""
                             placeholder="example@email.com"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="email"/>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                     <div class="mt-2">
                         <input id="phoneNumber" name="phoneNumber" type="tel" autocomplete="tel" required=""
                             placeholder="+31 0 00000000"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="phone"/>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                     <div class="mt-2">
                         <input id="password" name="password" type="password" autocomplete="new-password" required=""
                             placeholder="***********"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" />
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="password"/>
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@
                 </div>
 
                 <div>
-                    <button type="submit"
+                    <button @click="register" type="button"
                         class="flex w-full justify-center rounded-md bg-teal-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500">Create
                         Account</button>
                 </div>
@@ -73,13 +73,38 @@
                 {{ ' ' }}
                 <router-link to="/login" class="font-semibold leading-6 text-teal-600 hover:text-teal-500"
                     active-class="active">Click here to login</router-link>
-        </p>
+            </p>
+        </div>
     </div>
-</div></template>
+</template>
 
 <script>
+import axios from '../axios-auth';
 export default {
-    name: 'RegisterView'
+    name: 'RegisterView',
+    data() {
+        return {
+            email: '',
+            firstName: '',
+            lastName: '',
+            phone: '',
+            password: ''
+        };
+    }, methods: {
+        register() {
+            axios.post("auth/register", {
+                email: this.email,
+                password: this.password,
+                firstName: this.firstName,
+                lastName: this.lastName,
+                phone: this.phone
+            })
+                .then((res) => {
+                    this.$router.push('/login');
+                })
+                .catch((error) => console.log(error));
+        }
+    }
 }
 </script>
 

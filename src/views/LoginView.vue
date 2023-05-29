@@ -59,39 +59,48 @@ export default {
   },
   methods: {
     login() {
-      axios.post("auth/login", {
-        username: this.username,
-        password: this.password,
-      })
-        .then((res) => {
-          console.log(res);
-          const token = res.data.token;
-           localStorage.setItem('token', token); // Store the token in local storage
-           localStorage.setItem('username', this.username); // Store the username in local storage
-           this.redirctUser(this.username);
-        })
-        .catch((error) => console.log(error));
-    }, 
-    redirctUser(username){
+      // axios.post("auth/login", {
+      //   username: this.username,
+      //   password: this.password,
+      // })
+      //   .then((res) => {
+      //     console.log(res);
+      //     const token = res.data.token;
+      //      localStorage.setItem('token', token); // Store the token in local storage
+      //      localStorage.setItem('username', this.username); // Store the username in local storage
+      //      this.redirctUser(this.username);
+      //   })
+      //   .catch((error) => console.log(error));
+      this.store.login(this.username, this.password)
+        .then(
+           this.redirctUser(this.username)
+        )
+        .catch((error) => {
+          this.errorMessage = error;
+        });
+
+    },
+    redirctUser(username) {
       const token = localStorage.getItem('token');
       axios
-            .get("users/email/" + username, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-            .then((result) => {
-                console.log(result.data);
-                if(result.data.roles.includes('ROLE_CUSTOMER') && !result.data.roles.includes('ROLE_EMPLOYEE')){
-                  this.$router.push('/customerDashboard');
-                }
-                else if(result.data.roles.includes('ROLE_EMPLOYEE')){
-                  this.$router.push('/users');
-                }
-            })
-            .catch((error) => console.log(error));
+        .get("users/email/" + username, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((result) => {
+          console.log(result.data);
+          if (result.data.roles.includes('ROLE_CUSTOMER') && !result.data.roles.includes('ROLE_EMPLOYEE')) {
+            this.$router.push('/customerDashboard');
+          }
+          else if (result.data.roles.includes('ROLE_EMPLOYEE')) {
+            this.$router.push('/users');
+          }
+        })
+        .catch((error) => console.log(error));
 
     }
-  }}
+  }
+}
 </script>
 

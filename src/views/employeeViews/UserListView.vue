@@ -39,6 +39,7 @@
 <script>
 import axios from '../../axios-auth';
 import UserListItem from '../../components/users/UserListItem.vue';
+import { userStore } from '../../stores/user.js';
 
 export default {
     name: 'UserList',
@@ -48,6 +49,7 @@ export default {
     data() {
         return {
             users: [],
+            store: userStore()
         };
     },
     mounted() {
