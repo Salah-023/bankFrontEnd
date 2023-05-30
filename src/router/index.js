@@ -8,6 +8,8 @@ import UserListView from '../views/employeeViews/UserListView.vue'
 import EditUserView from '../views/employeeViews/EditUserView.vue'
 import EditBankAccountView from '../views/employeeViews/EditBankAccountView.vue'
 import CustomerDashboardView from '../views/customerViews/CustomerDashboardView.vue'
+import MakeTransaction from '../components/transactions/MakeTransaction.vue'
+import TransactionList from '../components/transactions/TransactionList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
