@@ -50,6 +50,17 @@ const router = createRouter({
       name : 'editUser',
       component: EditUser ,
       props: true
+    },
+    {
+      path: '/transactions',
+      name: 'transactions',
+      component: TransactionList
+    },
+    {
+      path: '/makeTransaction',
+      name: 'makeTransaction',
+      component: MakeTransaction,
+      props: true
     }
   ]
 })
