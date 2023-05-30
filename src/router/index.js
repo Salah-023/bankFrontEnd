@@ -54,9 +54,20 @@ const router = createRouter({
       props: true
     },
     {
+
       path :'/customerDashboard',
       name :'customerDashboard',
       component: CustomerDashboardView
+    },{
+      path: '/transactions',
+      name: 'transactions',
+      component: TransactionList
+    },
+    {
+      path: '/makeTransaction',
+      name: 'makeTransaction',
+      component: MakeTransaction,
+      props: true
     }
   ]
 })
