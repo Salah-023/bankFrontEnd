@@ -56,11 +56,10 @@ export default {
     },
     methods: {
         update() {
-            const token = localStorage.getItem('token');
             axios
                 .get("users", {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${this.store.getToken}`
                     }
                 })
                 .then((result) => {
@@ -70,12 +69,11 @@ export default {
                 .catch((error) => console.log(error));
         },
         applyFilter() {
-            const token = localStorage.getItem('token');
             if (this.filterWithoutBankAccounts) {
                 axios
                     .get("users?hasAccount=false", {
                         headers: {
-                            Authorization: `Bearer ${token}`
+                            Authorization: `Bearer ${this.store.getToken}`
                         }
                     })
                     .then((result) => {

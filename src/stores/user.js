@@ -1,13 +1,16 @@
 import { defineStore } from 'pinia';
 import axios from '../axios-auth';
+import router from '../router/index.js'
 export const userStore = defineStore('userStore', {
     state: () => ({
         token: '',
         username: '',
+        roles: []
     }),
     getters: {
         isAuthenticated: (state) => state.token != '',
-        getToken: (state) => state.token
+        getToken: (state) => state.token,
+        getRoles: (state) => state.roles
     },
     actions: {
         autologin() {
@@ -36,6 +39,26 @@ export const userStore = defineStore('userStore', {
             this.username = '';
             localStorage.removeItem('username');
             localStorage.removeItem('token');
+        },
+        redirctUser() {
+            axios
+                .get("users/email/" + this.username, {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`
+                    }
+                })
+                .then((result) => {
+                    console.log(result.data);
+                    this.roles = result.data.roles;
+                    if (result.data.roles.includes('ROLE_CUSTOMER') && !result.data.roles.includes('ROLE_EMPLOYEE')) {
+                        router.push('/customerDashboard');
+                    }
+                    else if (result.data.roles.includes('ROLE_EMPLOYEE')) {
+                        router.push('/users');
+                    }
+                })
+                .catch((error) => console.log(error));
+
         }
     }
 });

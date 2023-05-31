@@ -24,11 +24,17 @@
   
 <script>
 import axios from '../../axios-auth';
+import { userStore } from '../../stores/user.js';
 
 export default {
     name: "UserListItem",
     props: {
         user: Object,
+    },
+    data() {
+        return {
+            store: userStore()
+        };
     },
     methods: {
         getCurrentAccount(bankAccounts) {
@@ -42,12 +48,11 @@ export default {
         editUser(id) {
             this.$router.push('/editUser/' + id);
         },
-        deleteUser(id) {
-            const token = localStorage.getItem('token');
+        deleteUser(id) {     
             axios
                 .delete("users/"+ id, {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${this.store.getToken}`
                     }
                 })
                 .then((result) => {
