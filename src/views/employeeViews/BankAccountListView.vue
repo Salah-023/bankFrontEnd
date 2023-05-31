@@ -22,7 +22,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <bankAccount-list-item v-for="bankAccount in bankAccounts" :key="bankAccount.iban" :bankAccount='bankAccount' @update="update" />
+                        <bankAccount-list-item v-for="bankAccount in bankAccounts" :key="bankAccount.iban"
+                            :bankAccount='bankAccount' @update="update" />
                     </tbody>
                 </table>
             </div>
@@ -50,8 +51,13 @@ export default {
     },
     methods: {
         update() {
+            const token = localStorage.getItem('token');
             axios
-                .get("bankAccounts")
+                .get("bankAccounts", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
                 .then((result) => {
                     console.log(result);
                     this.bankAccounts = result.data;

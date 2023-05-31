@@ -13,12 +13,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <transaction-list-item v-for="transaction in transactions" :key="transaction.ibanOfSender" :transaction='transaction' @update="update" />
+                        <transaction-list-item v-for="transaction in transactions" :key="transaction.ibanOfSender"
+                            :transaction='transaction' @update="update" />
                     </tbody>
                 </table>
             </div>
             <router-link to="/register" class="font-semibold leading-6 text-teal-600 hover:text-teal-500"
-            active-class="active">Make Transaction</router-link>
+                active-class="active">Make Transaction</router-link>
         </div>
     </main>
 </template>
@@ -43,11 +44,16 @@ export default {
     },
     methods: {
         update() {
+            const token = localStorage.getItem('token');
             axios
-                .get("transactions")
+                .get("transactions", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
                 .then((result) => {
                     console.log(result);
-                    this.users = result.data;
+                    this.transactions = result.data;
                 })
                 .catch((error) => console.log(error));
         },

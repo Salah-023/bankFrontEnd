@@ -40,7 +40,7 @@ const router = createRouter({
       component: BankAccountListView
     }
     ,{
-      path:'/editBankAccount/:id',
+      path:'/editBankAccount/:iban',
       name : 'editBankAccount',
       component: EditBankAccountView ,
       props: true

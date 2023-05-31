@@ -43,21 +43,26 @@ import axios from '../../axios-auth';
 export default {
     name: "EditBankAccount",
     props: {
-        id: String,
+        iban: String,
     },
     data() {
         return {
             bankAccount: {
-                id: "",
+                iban: "",
                 absoluteLimit: 0.0,
-                isAvailable: true
+                available: true
             }
         };
     },
     methods: {
         updateBankAccount() {
+            const token = localStorage.getItem('token');
             axios
-                .put("/bankAccounts/" + this.bankAccount.id, this.bankAccount)
+                .put("/bankAccounts/" + this.bankAccount.iban, this.bankAccount, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
                 .then((res) => {
                     console.log(res.data);
                     this.$refs.form.reset();
@@ -66,9 +71,14 @@ export default {
                 .catch((error) => console.log(error));
         },
         changeAccountStatus() {
-            this.bankAccount.isAvailable = !this.bankAccount.isAvailable;
+            const token = localStorage.getItem('token');
+            this.bankAccount.available = !this.bankAccount.available;
             axios
-                .put("/bankAccount/" + this.bankAccount.id, this.bankAccount)
+                .put("/bankAccount/" + this.bankAccount.iban, this.bankAccount, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
                 .then((res) => {
                     console.log(res.data);
                     this.$refs.form.reset();
@@ -78,8 +88,13 @@ export default {
         }
     },
     mounted() {
+        const token = localStorage.getItem('token');
         axios
-            .get("bankAccounts/" + this.id)
+            .get("bankAccounts/" + this.iban, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then((result) => {
                 console.log(result);
                 this.bankAccount = result.data;
@@ -88,7 +103,7 @@ export default {
     },
     computed: {
         buttonText() {
-            return this.isAvailable ? 'Activate' : 'Deactivate this account';
+            return this.available ? 'Activate' : 'Deactivate this account';
         }
     },
 };

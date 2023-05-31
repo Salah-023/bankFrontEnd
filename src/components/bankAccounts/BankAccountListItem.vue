@@ -5,7 +5,7 @@
         <td class="py-2 px-4 border-b">{{ bankAccount.absoluteLimit }}</td>
         <td class="py-2 px-4 border-b">{{ bankAccount.balance }}</td>
         <td class="py-2 px-4 border-b">{{ bankAccount.type }}</td>
-        <td class="py-2 px-4 border-b">{{ bankAccount.isAvailable ? 'Inactive' : 'Active' }}</td>
+        <td class="py-2 px-4 border-b">{{ bankAccount.available ? 'Inactive' : 'Active' }}</td>
         <td class="py-2 px-4 border-b">
             <button class="text-blue-500 hover:text-blue-700" @click="editBankAccount(bankAccount.iban)">Edit</button>&nbsp;&nbsp;
         </td>
@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         editBankAccount(iban) {
-            this.$router.push('/editBankAccount/' + iban);
+            this.$router.push('/editBankAccount/' + this.bankAccount.iban);
         }
     }
 };

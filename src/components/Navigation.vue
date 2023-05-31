@@ -46,7 +46,6 @@ export default {
     logout() {
       this.store.logout();
       this.$router.push('/');
-
     }
   }
 };
