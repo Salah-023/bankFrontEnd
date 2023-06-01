@@ -10,6 +10,7 @@ import EditBankAccountView from '../views/employeeViews/EditBankAccountView.vue'
 import CustomerDashboardView from '../views/customerViews/CustomerDashboardView.vue'
 import MakeTransaction from '../components/transactions/MakeTransaction.vue'
 import TransactionList from '../components/transactions/TransactionList.vue'
+import SearchForIban from '../views/customerViews/SearchForIban.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,46 +22,46 @@ const router = createRouter({
     },
     {
       path: '/login',
-      name:'login',
+      name: 'login',
       component: LoginView
     },
     {
-      path :'/register',
-      name :'register',
+      path: '/register',
+      name: 'register',
       component: RegisterView
     },
     {
-      path :'/editProfile',
-      name :'editProfile',
+      path: '/editProfile',
+      name: 'editProfile',
       component: EditProfileView
     },
     {
-      path :'/bankAccountList',
-      name :'bankAccountList',
+      path: '/bankAccountList',
+      name: 'bankAccountList',
       component: BankAccountListView
     }
-    ,{
-      path:'/editBankAccount/:iban',
-      name : 'editBankAccount',
-      component: EditBankAccountView ,
+    , {
+      path: '/editBankAccount/:iban',
+      name: 'editBankAccount',
+      component: EditBankAccountView,
       props: true
     },
     {
-      path :'/users',
-      name :'users',
+      path: '/users',
+      name: 'users',
       component: UserListView
-    },{
-      path:'/editUser/:id',
-      name : 'editUser',
-      component: EditUserView ,
+    }, {
+      path: '/editUser/:id',
+      name: 'editUser',
+      component: EditUserView,
       props: true
     },
     {
 
-      path :'/customerDashboard',
-      name :'customerDashboard',
+      path: '/customerDashboard',
+      name: 'customerDashboard',
       component: CustomerDashboardView
-    },{
+    }, {
       path: '/transactions',
       name: 'transactions',
       component: TransactionList
@@ -70,6 +71,10 @@ const router = createRouter({
       name: 'makeTransaction',
       component: MakeTransaction,
       props: true
+    }, {
+      path: '/searchForIban',
+      name: 'SearchForIban',
+      component: SearchForIban
     }
   ]
 })
