@@ -4,8 +4,9 @@
             <div class="flex items-center justify-between">
                 <p class="text-4xl font-bold mx-5" style="margin-top: 7rem;">Welcome to Inholland Bank, {{ user.firstName }}
                     {{ user.lastName }}</p>
-                
-                <router-link to="/editProfile" class="bg-white hover:bg-teal-500 text-teal-700 text-teal font-bold py-2 px-4 rounded"
+
+                <router-link to="/editProfile"
+                    class="bg-white hover:bg-teal-500 text-teal-700 text-teal font-bold py-2 px-4 rounded"
                     active-class="active">Edit Profile</router-link>
             </div>
             <div class="grid grid-cols-3 gap-4 my-5">
@@ -46,14 +47,55 @@
                     </button>
                 </div>
             </div>
+
+            <div class="flex">
+                <div class="w-1/2 pr-4">
+                    <p class="text-2xl font-bold mt-4 mx-4">My Transactions</p>
+                    <table class="mt-3 min-w-full bg-white border border-gray-300">
+                        <thead>
+                            <tr>
+                            <th class="py-2 px-4 border-b">Iban of Sender</th>
+                            <th class="py-2 px-4 border-b">Iban of Receiver</th>
+                            <th class="py-2 px-4 border-b">Amount</th>
+                            <th class="py-2 px-4 border-b">Date of Transaction</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <transaction-list-item v-for="transaction in sentTransactions" :key="transaction.ibanOfSender"
+                            :transaction='transaction' />
+                    </tbody>
+                    </table>
+                </div>
+                <div class="w-1/2 pl-4">
+                    <p class="text-2xl font-bold mt-4 mx-4">Received Transactions</p>
+                    <table class="mt-3 min-w-full bg-white border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 border-b">Date</th>
+                                <th class="py-2 px-4 border-b">Sender IBAN</th>
+                                <th class="py-2 px-4 border-b">Receiver IBAN</th>
+                                <th class="py-2 px-4 border-b">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </main>
 </template>
   
 <script>
 import axios from '../../axios-auth';
+import TransactionListItem from '../../components/transactions/TransactionListItem.vue';
+
 
 export default {
+    name: 'TransactionList',
+    components: {
+        TransactionListItem,
+    },
     data() {
         return {
             user: {
@@ -65,6 +107,8 @@ export default {
                 transactionLimit: 0.0
             },
             bankAccounts: [],
+            sentTransactions: [],
+            receivedTransactions: [],
             currentAccount: {
                 iban: "",
                 balance: "",
@@ -91,6 +135,19 @@ export default {
                 this.bankAccounts = result.data.bankAccounts;
                 this.currentAccount = this.getCurrentAccount(this.bankAccounts);
                 this.savingsAccount = this.getSavingsAccount(this.bankAccounts);
+
+                // Additional GET request for Transactions
+                axios
+                    .get("transactions", {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                    .then((transactionResult) => {
+                        console.log(transactionResult);
+                        this.sentTransactions = transactionResult.data;
+                    })
+                    .catch((transactionError) => console.log(transactionError));
             })
             .catch((error) => console.log(error));
     },

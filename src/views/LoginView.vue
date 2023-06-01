@@ -46,7 +46,6 @@
 </template>
 
 <script >
-import axios from '../axios-auth';
 import { userStore } from '../stores/user.js';
 export default {
   name: 'LoginView',
