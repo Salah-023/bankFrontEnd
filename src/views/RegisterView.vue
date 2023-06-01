@@ -99,7 +99,7 @@ export default {
                 lastName: this.lastName,
                 phone: this.phone
             })
-                .then((res) => {
+                .then(() => {
                     this.$router.push('/login');
                 })
                 .catch((error) => console.log(error));
