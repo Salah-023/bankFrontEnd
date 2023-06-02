@@ -11,8 +11,8 @@
           <div class="mt-2">
 
             <input id="email" name="email" type="email" autocomplete="email" required=""
-              placeholder="    example@email.com"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+              placeholder="example@email.com"
+              class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
               v-model="username" />
           </div>
         </div>
@@ -22,8 +22,8 @@
           </div>
           <div class="mt-2">
             <input id="password" name="password" type="password" autocomplete="current-password" required=""
-              placeholder="    ***********"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+              placeholder="***********"
+              class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
               v-model="password" />
           </div>
         </div>
