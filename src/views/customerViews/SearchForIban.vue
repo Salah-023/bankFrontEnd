@@ -1,35 +1,35 @@
 <template>
-    <div class="flex flex-col items-center">
-        <div class="my-6">
-            <input type="text" placeholder="First name of the user" v-model="firstName"
-                class="w-80 h-12 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
-        </div>
+    <div class="h-screen flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="flex flex-col items-center">
+            <p class="mb-4 text-lg font-medium text-center">Don't know the IBAN of the person you want to do a transaction
+                to?<br>Enter their name and find their IBAN.</p>
+            <div class="my-6">
+                <label for="firstName" class="pl-3 block text-sm font-medium leading-6 text-gray-900">First Name</label>
+                <input id="firstName" name="firstName" type="text" placeholder="First Name" v-model="firstName"
+                    class="w-80 h-12 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-14b8a6">
+            </div>
 
-        <div class="mb-6">
-            <input type="text" placeholder="Last name of the user" v-model="lastName"
-                class="w-80 h-12 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
-        </div>
+            <div class="mb-6">
+                <label for="lastName" class="pl-3 block text-sm font-medium leading-6 text-gray-900">Last Name</label>
+                <input id="lastName" name="lastName" type="text" placeholder="Last Name" v-model="lastName"
+                    class="pl-3 w-80 h-12 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-14b8a6">
+            </div>
 
-        <div class="mb-6">
-            <div class="font-bold text-xl">Here is the IBAN:</div>
-            <input type="text" v-model="iban"
-                class="w-80 h-12 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
-                readonly>
-        </div>
+            <button @click="searchForIban"
+                class="mb-5 flex items-center justify-center w-48 h-12 bg-teal-700 text-white font-semibold rounded-lg shadow-md hover:bg-12b8a6">
+                Find IBAN
+            </button>
 
-        <button @click="searchForIban"
-            class="flex items-center justify-center w-48 h-12 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
-            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                    d="M15.701 14.299l-4.181-4.181a6 6 0 111.414-1.414l4.181 4.181a1 1 0 01-1.414 1.414zM8 14A6 6 0 108 2a6 6 0 000 12z">
-                </path>
-            </svg>
-            Search
-        </button>
+            <div class="mb-6">
+                <label for="iban" class="pl-3 block text-sm font-medium leading-6 text-gray-900">Iban</label>
+                <input type="text" v-model="iban"
+                    class="pl-3 w-80 h-12 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-14b8a6 bg-transparent font-bold"
+                    readonly>
+            </div>
+
+        </div>
     </div>
 </template>
-  
-  
 
 <script>
 import axios from '../../axios-auth';
