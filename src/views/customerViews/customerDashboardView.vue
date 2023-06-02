@@ -39,17 +39,19 @@
                         MAKE A TRANSACTION
                     </button>
 
-                    <!-- <button
-                        class="w-full h-50 block bg-white hover:bg-teal-500 text-teal-500 font-bold py-2 px-4 rounded mb-2"
-                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"> <img src="/search-icon.png" alt="Image"
-                            class="inline-block h-9 w-7 mr-5">
-                        SEARCH FOR AN IBAN
-                    </button> -->
 
                     <router-link to="/searchForIban"
-                        class="w-full h-50 block bg-white hover:bg-teal-500 text-teal-500 font-bold py-2 px-4 rounded mb-2"
-                        active-class="active">
-                        <img src="/search-icon.png" alt="Image" class="inline-block h-9 w-7 mr-5">SEARCH FOR AN IBAN</router-link>
+                        class="w-full h-50 block bg-white text-teal-500 hover:text-teal-500 font-bold py-2 px-4 rounded mb-2"
+                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+                        display: flex; justify-content: center; align-items: center; 
+                        ">
+                        <img src="/search-icon.png" alt="Image" class="inline-block h-9 w-7 mr-5">
+                        SEARCH FOR AN IBAN
+                    </router-link>
+
+
+
+
                 </div>
             </div>
 
@@ -59,16 +61,16 @@
                     <table class="mt-3 min-w-full bg-white border border-gray-300">
                         <thead>
                             <tr>
-                            <th class="py-2 px-4 border-b">Iban of Sender</th>
-                            <th class="py-2 px-4 border-b">Iban of Receiver</th>
-                            <th class="py-2 px-4 border-b">Amount</th>
-                            <th class="py-2 px-4 border-b">Date of Transaction</th>
-                        </tr>
+                                <th class="py-2 px-4 border-b">Iban of Sender</th>
+                                <th class="py-2 px-4 border-b">Iban of Receiver</th>
+                                <th class="py-2 px-4 border-b">Amount</th>
+                                <th class="py-2 px-4 border-b">Date of Transaction</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <transaction-list-item v-for="transaction in sentTransactions" :key="transaction.ibanOfSender"
-                            :transaction='transaction' />
-                    </tbody>
+                            <transaction-list-item v-for="transaction in sentTransactions" :key="transaction.ibanOfSender"
+                                :transaction='transaction' />
+                        </tbody>
                     </table>
                 </div>
                 <div class="w-1/2 pl-4">
