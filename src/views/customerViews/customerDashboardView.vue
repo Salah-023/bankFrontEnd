@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="h-screen container mx-auto py-8">
+        <div class="container mx-auto py-8">
             <div class="flex items-center justify-between">
                 <p class="text-4xl font-bold mx-5" style="margin-top: 7rem;">Welcome to Inholland Bank, {{ user.firstName }}
                     {{ user.lastName }}</p>
@@ -14,7 +14,6 @@
                     <div class="rounded-lg bg-teal-200 p-4 "
                         style="background-color: #b9eae4; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
                         <p class="text-2xl font-bold" style="color: #333;">My Accounts:</p>
-
                         <div class="grid grid-cols-2 gap-4 mt-4">
                             <div class="rounded-lg bg-white p-4">
                                 <p class="text-lg text-center font-bold mb-2">Current Account</p>
@@ -110,8 +109,6 @@ export default {
                 transactionLimit: 0.0
             },
             bankAccounts: [],
-            sentTransactions: [],
-            receivedTransactions: [],
             currentAccount: {
                 iban: "",
                 balance: "",
@@ -121,7 +118,9 @@ export default {
                 iban: "",
                 balance: "",
                 absoluteLimit: 0.0
-            }
+            },
+            sentTransactions: [],
+            receivedTransactions: []
         };
     },
     mounted() {
@@ -165,8 +164,13 @@ export default {
         },
         fetchTransactions(accountIban) {
             const token = localStorage.getItem('token');
+
+            // Fetch transactions for accountFrom
             axios
-                .get("transactions?accountFrom=" + accountIban, {
+                .get("transactions", {
+                    params: {
+                        accountFrom: accountIban
+                    },
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -180,14 +184,37 @@ export default {
                         };
                     });
                     this.sentTransactions = [...this.sentTransactions, ...newTransactions];
-                    this.sortTransactions();
+                    this.sentTransactions = this.sortTransactions(this.sentTransactions);
                 })
                 .catch((transactionError) => console.log(transactionError));
-        },
-        sortTransactions() {
-            this.sentTransactions.sort((a, b) => {
-                return new Date(b.dateTime) - new Date(a.dateTime);
-            });
+
+            // Fetch transactions for accountTo
+            axios
+                .get("transactions", {
+                    params: {
+                        accountTo: accountIban
+                    },
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((transactionResult) => {
+                    console.log(transactionResult);
+                    const newTransactions = transactionResult.data.map((transaction) => {
+                        return {
+                            ...transaction,
+                            accountIban: accountIban
+                        };
+                    });
+                    this.receivedTransactions = [...this.receivedTransactions, ...newTransactions];
+                    this.sortTransactions(this.receivedTransactions);
+                })
+                .catch((transactionError) => console.log(transactionError));
+        }
+        ,
+        sortTransactions(transactions) {
+            transactions.sort((a, b) => b.timeStamp - a.timeStamp);
+            return transactions;
         }
     }
 };
