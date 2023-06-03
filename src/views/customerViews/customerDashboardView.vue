@@ -7,7 +7,7 @@
 
                 <router-link to="/editProfile"
                     class="bg-white hover:bg-teal-500 text-teal-700 text-teal font-bold py-2 px-4 rounded"
-                    active-class="active">Edit Profile</router-link>
+                    active-class="active">Profile Details/Edit Profile</router-link>
             </div>
             <div class="grid grid-cols-3 gap-4 my-5">
                 <div class="col-span-2">
