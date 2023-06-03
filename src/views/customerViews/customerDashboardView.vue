@@ -68,21 +68,22 @@
                         </tbody>
                     </table>
                 </div>
-                <!---<div class="w-1/2 pl-4">
+                <div class="w-1/2 pl-4">
                     <p class="text-2xl font-bold mt-4 mx-4">Received Transactions</p>
                     <table class="mt-3 min-w-full bg-white border border-gray-300">
                         <thead>
                             <tr>
-                                <th class="py-2 px-4 border-b">Date</th>
-                                <th class="py-2 px-4 border-b">Sender IBAN</th>
-                                <th class="py-2 px-4 border-b">Receiver IBAN</th>
+                                <th class="py-2 px-4 border-b">Iban of Sender</th>
+                                <th class="py-2 px-4 border-b">Iban of Receiver</th>
                                 <th class="py-2 px-4 border-b">Amount</th>
+                                <th class="py-2 px-4 border-b">Date of Transaction</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody><transaction-list-item v-for="transaction in receivedTransactions" :key="transaction.ibanOfSender"
+                                :transaction='transaction' />
                         </tbody>
                     </table>
-                </div>-->
+                </div>
             </div>
         </div>
     </main>
@@ -120,7 +121,8 @@ export default {
                 absoluteLimit: 0.0
             },
             sentTransactions: [],
-            receivedTransactions: []
+            receivedTransactions: [],
+            sortedTransactions: []
         };
     },
     mounted() {
@@ -137,19 +139,6 @@ export default {
                 this.bankAccounts = result.data.bankAccounts;
                 this.currentAccount = this.getCurrentAccount(this.bankAccounts);
                 this.savingsAccount = this.getSavingsAccount(this.bankAccounts);
-
-                /*// Additional GET request for Transactions
-                axios
-                    .get("transactions?accountFrom=" + this.currentAccount.iban, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
-                    .then((transactionResult) => {
-                        console.log(transactionResult);
-                        this.sentTransactions = transactionResult.data;
-                    })
-                    .catch((transactionError) => console.log(transactionError));*/
                 this.fetchTransactions(this.currentAccount.iban);
                 this.fetchTransactions(this.savingsAccount.iban);
             })
@@ -207,14 +196,15 @@ export default {
                         };
                     });
                     this.receivedTransactions = [...this.receivedTransactions, ...newTransactions];
-                    this.sortTransactions(this.receivedTransactions);
+                    this.receivedTransactions = this.sortTransactions(this.receivedTransactions);
                 })
                 .catch((transactionError) => console.log(transactionError));
         }
         ,
         sortTransactions(transactions) {
-            transactions.sort((a, b) => b.timeStamp - a.timeStamp);
-            return transactions;
+            this.sortedTransactions = [];
+            this.sortedTransactions = transactions.sort((a, b) => b.timeStamp - a.timeStamp);
+            return this.sortedTransactions;
         }
     }
 };
