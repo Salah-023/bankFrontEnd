@@ -48,10 +48,6 @@
                         <img src="/search-icon.png" alt="Image" class="inline-block h-9 w-7 mr-5">
                         SEARCH FOR AN IBAN
                     </router-link>
-
-
-
-
                 </div>
             </div>
 
@@ -73,7 +69,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="w-1/2 pl-4">
+                <!---<div class="w-1/2 pl-4">
                     <p class="text-2xl font-bold mt-4 mx-4">Received Transactions</p>
                     <table class="mt-3 min-w-full bg-white border border-gray-300">
                         <thead>
@@ -87,7 +83,7 @@
                         <tbody>
                         </tbody>
                     </table>
-                </div>
+                </div>-->
             </div>
         </div>
     </main>
@@ -143,9 +139,9 @@ export default {
                 this.currentAccount = this.getCurrentAccount(this.bankAccounts);
                 this.savingsAccount = this.getSavingsAccount(this.bankAccounts);
 
-                // Additional GET request for Transactions
+                /*// Additional GET request for Transactions
                 axios
-                    .get("transactions", {
+                    .get("transactions?accountFrom=" + this.currentAccount.iban, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -154,7 +150,9 @@ export default {
                         console.log(transactionResult);
                         this.sentTransactions = transactionResult.data;
                     })
-                    .catch((transactionError) => console.log(transactionError));
+                    .catch((transactionError) => console.log(transactionError));*/
+                this.fetchTransactions(this.currentAccount.iban);
+                this.fetchTransactions(this.savingsAccount.iban);
             })
             .catch((error) => console.log(error));
     },
@@ -164,6 +162,32 @@ export default {
         },
         getSavingsAccount(bankAccounts) {
             return bankAccounts.find(account => account.type === 'SAVINGS') || null;
+        },
+        fetchTransactions(accountIban) {
+            const token = localStorage.getItem('token');
+            axios
+                .get("transactions?accountFrom=" + accountIban, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((transactionResult) => {
+                    console.log(transactionResult);
+                    const newTransactions = transactionResult.data.map((transaction) => {
+                        return {
+                            ...transaction,
+                            accountIban: accountIban
+                        };
+                    });
+                    this.sentTransactions = [...this.sentTransactions, ...newTransactions];
+                    this.sortTransactions();
+                })
+                .catch((transactionError) => console.log(transactionError));
+        },
+        sortTransactions() {
+            this.sentTransactions.sort((a, b) => {
+                return new Date(b.dateTime) - new Date(a.dateTime);
+            });
         }
     }
 };
