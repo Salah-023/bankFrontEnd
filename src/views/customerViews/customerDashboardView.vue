@@ -31,12 +31,14 @@
                     </div>
                 </div>
                 <div class="col-span-1">
-                    <button
+                    <router-link to="/makeTransaction"
                         class="w-full h-50 block bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mb-2"
-                        style="background-color: #109385;">
+                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+                        display: flex; justify-content: center; align-items: center; 
+                        ">
                         <img src="/transfer-icon.png" alt="Image" class="inline-block h-10 w-10 mr-5">
                         MAKE A TRANSACTION
-                    </button>
+                    </router-link>
 
 
                     <router-link to="/searchForIban"
@@ -85,6 +87,9 @@
                     </table>
                 </div>
             </div>
+            <router-link to="/employeeDashboard" v-if="user.role === 'EMPLOYEE'"
+                    class="bg-white hover:bg-teal-500 text-teal-700 text-teal font-bold py-2 px-4 rounded"
+                    active-class="active">Back to Employee Dashboard</router-link>
         </div>
     </main>
 </template>

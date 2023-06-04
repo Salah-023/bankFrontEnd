@@ -8,6 +8,7 @@ import UserListView from '../views/employeeViews/UserListView.vue'
 import EditUserView from '../views/employeeViews/EditUserView.vue'
 import EditBankAccountView from '../views/employeeViews/EditBankAccountView.vue'
 import CustomerDashboardView from '../views/customerViews/CustomerDashboardView.vue'
+import EmployeeDashboardView from '../views/employeeViews/EmployeeDashboardView.vue'
 import MakeTransaction from '../components/transactions/MakeTransaction.vue'
 import TransactionList from '../components/transactions/TransactionList.vue'
 import SearchForIban from '../views/customerViews/SearchForIban.vue'
@@ -57,11 +58,16 @@ const router = createRouter({
       props: true
     },
     {
-
       path: '/customerDashboard',
       name: 'customerDashboard',
       component: CustomerDashboardView
-    }, {
+    },
+    {
+      path: '/employeeDashboard',
+      name: 'employeeDashboard',
+      component: EmployeeDashboardView
+    },
+    {
       path: '/transactions',
       name: 'transactions',
       component: TransactionList

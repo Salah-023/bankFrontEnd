@@ -54,7 +54,7 @@ export const userStore = defineStore('userStore', {
                         router.push('/customerDashboard');
                     }
                     else if (result.data.roles.includes('ROLE_EMPLOYEE')) {
-                        router.push('/users');
+                        router.push('/employeeDashboard');
                     }
                 })
                 .catch((error) => console.log(error));

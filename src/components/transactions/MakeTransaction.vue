@@ -6,8 +6,8 @@
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-6" action="#" method="POST">
                 <div>
-                    <label for="senderIban" class="block text-sm font-medium leading-6 text-gray-900">Iban of Sender</label>
-                    <div class="mt-2">
+                    <label  for="senderIban" class="block text-sm font-medium leading-6 text-gray-900">Iban of Sender</label>
+                    <div v-if="user.role==='EMPLOYEE'" class="mt-2">
                         <input id="senderIban" name="senderIban" type="text" autocomplete="senderIban" required=""
                             placeholder="   NL00 BANK 0000 0000 00"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" 
@@ -42,7 +42,7 @@
                 </div>
             </form>
 
-             <router-link to="/transactionList" class="font-semibold leading-6 text-teal-600 hover:text-teal-500"
+             <router-link to="/transactions" class="font-semibold leading-6 text-teal-600 hover:text-teal-500"
                active-class="active">Click here to see all transactions</router-link>
     </div>
     </div>
@@ -63,25 +63,48 @@ export default {
     },
     methods: {
         makeTransaction() {
+            if(this.user.role === 'EMPLOYEE') {
+
+            }
+            else {
+                this.transaction.senderIban = this.user.iban;
+            }
             axios
                 .post("/transactions", this.transaction)
                 .then((res) => {
                     console.log(res.data);
                     this.$refs.form.reset();
-                    this.$router.push("/transactionList");
+                    this.$router.push("/transactions");
                 })
                 .catch((error) => console.log(error));
         },
     },
     mounted() {
+        const token = localStorage.getItem('token');
         axios
-            .get("/transactions")
-            .then((res) => {
-                console.log(res.data);
-                this.transaction = res.data;
+            .get("users/email/" + localStorage.getItem('username'), {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((result) => {
+                console.log(result);
+                this.user = result.data;
+
+                axios
+                    .get("/transactions", {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                    .then((res) => {
+                        console.log(res.data);
+                        this.transaction = res.data;
+                    })
+                    .catch((error) => console.log(error));
             })
             .catch((error) => console.log(error));
-    },
+    }
 };
 </script>
 
