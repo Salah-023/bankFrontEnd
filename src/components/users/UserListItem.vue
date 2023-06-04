@@ -11,13 +11,15 @@
         <td class="py-2 px-4 border-b">{{ getCurrentAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">{{ getSavingsAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">
-            <button v-if="hasNoBankAccounts" class="text-green-500 hover:text-green-700" >Create B.A</button>
+            <button v-if="hasNoBankAccounts" class="text-green-500 hover:text-green-700" @click="createBankAccount">Create
+                B.A</button>
         </td>
         <td class="py-2 px-4 border-b">
             <button class="text-blue-500 hover:text-blue-700" @click="editUser(user.id)">Edit</button>&nbsp;&nbsp;
         </td>
         <td class="py-2 px-4 border-b">
-            <button v-if="hasNoBankAccounts" class="text-red-500 hover:text-red-700" @click="deleteUser(user.id)">Delete</button>
+            <button v-if="hasNoBankAccounts" class="text-red-500 hover:text-red-700"
+                @click="deleteUser(user.id)">Delete</button>
         </td>
     </tr>
 </template>
@@ -48,9 +50,9 @@ export default {
         editUser(id) {
             this.$router.push('/editUser/' + id);
         },
-        deleteUser(id) {     
+        deleteUser(id) {
             axios
-                .delete("users/"+ id, {
+                .delete("users/" + id, {
                     headers: {
                         Authorization: `Bearer ${this.store.getToken}`
                     }
@@ -58,6 +60,18 @@ export default {
                 .then((result) => {
                     console.log(result);
                     this.$emit('update')
+                })
+                .catch((error) => console.log(error));
+        },
+        createBankAccount() {
+            const bankAccountDTO = {                
+                absoluteLimit: 100.00,
+                balance: 0.00,
+                type: "CURRENT"
+            };
+            axios.post("bankAccounts", bankAccountDTO, this.user.id)
+                .then(() => {
+                    this.$router.push('/users');
                 })
                 .catch((error) => console.log(error));
         }

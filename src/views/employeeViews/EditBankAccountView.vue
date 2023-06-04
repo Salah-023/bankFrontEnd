@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="px-4 sm:px-6 mb-3">
-                        <button type="button" @click="changeStatus"
+                        <button type="button" @click="changeAccountStatus"
                             class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                             {{ buttonText }}
                         </button>
@@ -71,21 +71,25 @@ export default {
                 .catch((error) => console.log(error));
         },
         changeAccountStatus() {
-            const token = localStorage.getItem('token');
-            this.bankAccount.available = !this.bankAccount.available;
-            axios
-                .put("/bankAccount/" + this.bankAccount.iban, this.bankAccount, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                .then((res) => {
-                    console.log(res.data);
-                    this.$refs.form.reset();
-                    this.$router.push("/bankAccounts");
-                })
-                .catch((error) => console.log(error));
-        }
+    const token = localStorage.getItem('token');
+    this.bankAccount.available = !this.bankAccount.available;
+    let newStatus = this.bankAccount.available;
+    
+    axios
+        .put("/bankAccount/" + this.bankAccount.iban, { available: newStatus }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((res) => {
+            console.log(res.data);
+            this.$refs.form.reset();
+            this.$router.push("/bankAccountList");
+        })
+        .catch((error) => console.log(error));
+}
+
+
     },
     mounted() {
         const token = localStorage.getItem('token');

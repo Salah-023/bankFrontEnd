@@ -13,7 +13,6 @@
                     <thead>
                         <tr>
                             <th class="py-2 px-4 border-b">IBAN</th>
-                            <th class="py-2 px-4 border-b">Belongs To</th>
                             <th class="py-2 px-4 border-b">Limit</th>
                             <th class="py-2 px-4 border-b">Balance</th>
                             <th class="py-2 px-4 border-b">Type</th>
