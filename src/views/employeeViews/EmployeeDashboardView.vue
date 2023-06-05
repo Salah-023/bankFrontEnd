@@ -31,6 +31,15 @@
                         SEE ALL USERS
                     </router-link>
 
+                    <router-link to="/makeTransaction"
+                        class="w-full h-50 block bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mb-2"
+                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+                        display: flex; justify-content: center; align-items: center; 
+                        ">
+                        <img src="/transfer-icon.png" alt="Image" class="inline-block h-10 w-10 mr-5">
+                        Make a Transaction for a Customer
+                    </router-link>
+
                 </div>
             </div>
         </div>
