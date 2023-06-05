@@ -27,8 +27,9 @@
                                 <p class="text-lg">Balance: {{ savingsAccount.balance }}</p>
                                 <p class="text-lg">Limit: {{ savingsAccount.absoluteLimit }}</p>
                             </div>
-                        </div>
+                        </div><p>Total: {{ savingsAccount.balance + currentAccount.balance }}</p>
                     </div>
+                        
                 </div>
                 <div class="col-span-1">
                     <router-link to="/makeTransaction"

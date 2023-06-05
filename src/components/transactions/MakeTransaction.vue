@@ -58,12 +58,20 @@ export default {
                 senderIban: "",
                 receiverIban: "",
                 amount: ""
+            }, user: {
+                email: "",
+                firstName: "",
+                lastName: "",
+                phone: "",
+                dayLimit: 0.0,
+                transactionLimit: 0.0,
+                roles:[]
             }
             };
     },
     methods: {
         makeTransaction() {
-            if(this.user.role === 'EMPLOYEE') {
+            if(this.user.roles === 'EMPLOYEE') {
 
             }
             else {
