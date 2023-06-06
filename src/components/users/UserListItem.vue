@@ -70,13 +70,13 @@ export default {
                 balance: 0,
                 type: "CURRENT"
             }
-            axios.post("bankAccounts" + bankAccountDto, {
+            axios.post("bankAccounts" , bankAccountDto, {
                 headers: {
                         Authorization: `Bearer ${this.store.getToken}`
                     }
             })
                 .then(() => {
-                    this.$router.push('/users');
+                    this.$emit('update')
                 })
                 .catch((error) => console.log(error));
         }
