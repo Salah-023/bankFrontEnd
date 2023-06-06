@@ -11,7 +11,8 @@
         <td class="py-2 px-4 border-b">{{ getCurrentAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">{{ getSavingsAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">
-            <button v-if="hasNoBankAccounts" class="text-green-500 hover:text-green-700" @click="createBankAccount(user.id)">Create
+            <button v-if="hasNoBankAccounts" class="text-green-500 hover:text-green-700"
+                @click="createBankAccount(user.id)">Create
                 B.A</button>
         </td>
         <td class="py-2 px-4 border-b">
@@ -64,16 +65,28 @@ export default {
                 .catch((error) => console.log(error));
         },
         createBankAccount(id) {
-            const bankAccountDto = {
-                userId: id,            
+            const currentBankAccountDto = {
+                userId: id,
                 absoluteLimit: 100,
                 balance: 0,
                 type: "CURRENT"
             }
-            axios.post("bankAccounts" , bankAccountDto, {
+            axios.post("bankAccounts", currentBankAccountDto, {
                 headers: {
-                        Authorization: `Bearer ${this.store.getToken}`
-                    }
+                    Authorization: `Bearer ${this.store.getToken}`
+                }
+            })
+                .catch((error) => console.log(error));
+            const savingsBankAccountDto = {
+                userId: id,
+                absoluteLimit: 100,
+                balance: 0,
+                type: "SAVINGS"
+            }
+            axios.post("bankAccounts", savingsBankAccountDto, {
+                headers: {
+                    Authorization: `Bearer ${this.store.getToken}`
+                }
             })
                 .then(() => {
                     this.$emit('update')

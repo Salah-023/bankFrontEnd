@@ -71,25 +71,9 @@ export default {
                 .catch((error) => console.log(error));
         },
         changeAccountStatus() {
-    const token = localStorage.getItem('token');
-    this.bankAccount.available = !this.bankAccount.available;
-    let newStatus = this.bankAccount.available;
-    
-    axios
-        .put("/bankAccount/" + this.bankAccount.iban, { available: newStatus }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        .then((res) => {
-            console.log(res.data);
-            this.$refs.form.reset();
-            this.$router.push("/bankAccountList");
-        })
-        .catch((error) => console.log(error));
-}
-
-
+            this.bankAccount.available = !this.bankAccount.available;
+            this.updateBankAccount();
+        }
     },
     mounted() {
         const token = localStorage.getItem('token');
