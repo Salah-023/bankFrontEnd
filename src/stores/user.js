@@ -16,6 +16,7 @@ export const userStore = defineStore('userStore', {
         autologin() {
             if (localStorage["token"]) {
                 this.token = localStorage["token"];
+                this.roles=localStorage["roles"];
             }
         },
         login(username, password) {
@@ -30,6 +31,7 @@ export const userStore = defineStore('userStore', {
                     localStorage.setItem('token', this.token); // Store the token in local storage
                     localStorage.setItem('username', this.username); // Store the username in local storage
                     resolve()
+
                 })
                     .catch((error) => reject(error));
             })
@@ -37,6 +39,8 @@ export const userStore = defineStore('userStore', {
         logout() {
             this.token = '';
             this.username = '';
+            this.roles = [];
+            localStorage.removeItem('roles');
             localStorage.removeItem('username');
             localStorage.removeItem('token');
         },
@@ -50,6 +54,7 @@ export const userStore = defineStore('userStore', {
                 .then((result) => {
                     console.log(result.data);
                     this.roles = result.data.roles;
+                    localStorage.setItem('roles', this.roles); // Store the roles in local storage
                     if (result.data.roles.includes('ROLE_CUSTOMER') && !result.data.roles.includes('ROLE_EMPLOYEE')) {
                         router.push('/customerDashboard');
                     }
