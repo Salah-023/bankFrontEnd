@@ -18,7 +18,7 @@
                     </div>
                     <div class="px-4 sm:px-6 mb-3">
                         <button type="button" @click="changeAccountStatus"
-                            class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                            class="bg-transparent hover:bg-blue-500 text-red-600 font-semibold py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                             {{ buttonText }}
                         </button>
 
@@ -91,7 +91,7 @@ export default {
     },
     computed: {
         buttonText() {
-            return this.available ? 'Activate' : 'Deactivate this account';
+            return this.bankAccount.available ? 'Deactivate this account' : 'Activate this account';
         }
     },
 };
