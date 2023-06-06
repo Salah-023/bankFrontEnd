@@ -11,7 +11,7 @@
         <td class="py-2 px-4 border-b">{{ getCurrentAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">{{ getSavingsAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">
-            <button v-if="hasNoBankAccounts" class="text-green-500 hover:text-green-700" @click="createBankAccount">Create
+            <button v-if="hasNoBankAccounts" class="text-green-500 hover:text-green-700" @click="createBankAccount(user.id)">Create
                 B.A</button>
         </td>
         <td class="py-2 px-4 border-b">
@@ -63,13 +63,18 @@ export default {
                 })
                 .catch((error) => console.log(error));
         },
-        createBankAccount() {
-            const bankAccountDTO = {                
-                absoluteLimit: 100.00,
-                balance: 0.00,
+        createBankAccount(id) {
+            const bankAccountDto = {
+                userId: id,            
+                absoluteLimit: 100,
+                balance: 0,
                 type: "CURRENT"
-            };
-            axios.post("bankAccounts", bankAccountDTO, this.user.id)
+            }
+            axios.post("bankAccounts" + bankAccountDto, {
+                headers: {
+                        Authorization: `Bearer ${this.store.getToken}`
+                    }
+            })
                 .then(() => {
                     this.$router.push('/users');
                 })
