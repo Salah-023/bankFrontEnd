@@ -27,9 +27,10 @@
                                 <p class="text-lg">Balance: {{ savingsAccount.balance }}</p>
                                 <p class="text-lg">Limit: {{ savingsAccount.absoluteLimit }}</p>
                             </div>
-                        </div><p>Total: {{ savingsAccount.balance + currentAccount.balance }}</p>
+                        </div>
+                        <p>Total: {{ savingsAccount.balance + currentAccount.balance }}</p>
                     </div>
-                        
+
                 </div>
                 <div class="col-span-1">
                     <router-link to="/makeTransaction"
@@ -53,9 +54,22 @@
                 </div>
             </div>
 
+            <div class="mt-4 mx-4">
+                <label class="text-lg font-bold">Date From:</label>
+                <input type="date" v-model="dateFrom" @input="formatDateFrom"
+                    class="py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
+            </div>
+            <div class="mt-2 mx-4">
+                <label class="text-lg font-bold">Date To:</label>
+                <input type="date" v-model="dateTo" @input="formatDateTo"
+                    class="py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
+            </div>
+
             <div class="flex">
+
                 <div class="w-1/2 pr-4">
                     <p class="text-2xl font-bold mt-4 mx-4">My Transactions</p>
+
                     <table class="mt-3 min-w-full bg-white border border-gray-300">
                         <thead>
                             <tr>
@@ -82,15 +96,15 @@
                                 <th class="py-2 px-4 border-b">Date of Transaction</th>
                             </tr>
                         </thead>
-                        <tbody><transaction-list-item v-for="transaction in receivedTransactions" :key="transaction.ibanOfSender"
-                                :transaction='transaction' />
+                        <tbody><transaction-list-item v-for="transaction in receivedTransactions"
+                                :key="transaction.ibanOfSender" :transaction='transaction' />
                         </tbody>
                     </table>
                 </div>
             </div>
             <router-link to="/employeeDashboard" v-if="user.role === 'EMPLOYEE'"
-                    class="bg-white hover:bg-teal-500 text-teal-700 text-teal font-bold py-2 px-4 rounded"
-                    active-class="active">Back to Employee Dashboard</router-link>
+                class="bg-white hover:bg-teal-500 text-teal-700 text-teal font-bold py-2 px-4 rounded"
+                active-class="active">Back to Employee Dashboard</router-link>
         </div>
     </main>
 </template>
@@ -128,8 +142,25 @@ export default {
             },
             sentTransactions: [],
             receivedTransactions: [],
-            sortedTransactions: []
+            sortedTransactions: [],
+            dateFrom: null,
+            dateTo: null
         };
+    }, watch: {
+        dateFrom: {
+            handler() {
+                this.fetchTransactions(this.currentAccount.iban);
+                this.fetchTransactions(this.savingsAccount.iban);
+            },
+            deep: true,
+        },
+        dateTo: {
+            handler() {
+                this.fetchTransactions(this.currentAccount.iban);
+                this.fetchTransactions(this.savingsAccount.iban);
+            },
+            deep: true,
+        },
     },
     mounted() {
         const token = localStorage.getItem('token');
@@ -158,13 +189,15 @@ export default {
             return bankAccounts.find(account => account.type === 'SAVINGS') || null;
         },
         fetchTransactions(accountIban) {
+            this.sentTransactions = [];
+            this.receivedTransactions = [];
             const token = localStorage.getItem('token');
-
-            // Fetch transactions for accountFrom
             axios
                 .get("transactions", {
                     params: {
-                        accountFrom: accountIban
+                        accountFrom: accountIban,
+                        dateFrom: this.dateFrom, 
+                        dateTo: this.dateTo
                     },
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -211,6 +244,17 @@ export default {
             this.sortedTransactions = [];
             this.sortedTransactions = transactions.sort((a, b) => b.timeStamp - a.timeStamp);
             return this.sortedTransactions;
+        }
+    }, formatDateFrom() {
+        if (this.dateFrom) {
+            const [year, month, day] = this.dateFrom.split("-");
+            this.dateFrom = `${year}/${month}/${day}`;
+        }
+    },
+    formatDateTo() {
+        if (this.dateTo) {
+            const [year, month, day] = this.dateTo.split("-");
+            this.dateTo = `${year}/${month}/${day}`;
         }
     }
 };
