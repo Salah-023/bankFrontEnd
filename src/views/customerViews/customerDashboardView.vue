@@ -56,12 +56,12 @@
 
             <div class="mt-4 mx-4">
                 <label class="text-lg font-bold">Date From:</label>
-                <input type="date" v-model="dateFrom" @input="formatDateFrom"
+                <input type="date" v-model="dateFrom"
                     class="py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
             </div>
             <div class="mt-2 mx-4">
                 <label class="text-lg font-bold">Date To:</label>
-                <input type="date" v-model="dateTo" @input="formatDateTo"
+                <input type="date" v-model="dateTo"
                     class="py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
             </div>
 
@@ -143,8 +143,8 @@ export default {
             sentTransactions: [],
             receivedTransactions: [],
             sortedTransactions: [],
-            dateFrom: null,
-            dateTo: null
+            dateFrom: "",
+            dateTo: ""
         };
     }, watch: {
         dateFrom: {
@@ -196,7 +196,7 @@ export default {
                 .get("transactions", {
                     params: {
                         accountFrom: accountIban,
-                        dateFrom: this.dateFrom, 
+                        dateFrom: this.dateFrom,
                         dateTo: this.dateTo
                     },
                     headers: {
@@ -220,7 +220,9 @@ export default {
             axios
                 .get("transactions", {
                     params: {
-                        accountTo: accountIban
+                        accountTo: accountIban,
+                        dateFrom: this.dateFrom,
+                        dateTo: this.dateTo
                     },
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -244,17 +246,6 @@ export default {
             this.sortedTransactions = [];
             this.sortedTransactions = transactions.sort((a, b) => b.timeStamp - a.timeStamp);
             return this.sortedTransactions;
-        }
-    }, formatDateFrom() {
-        if (this.dateFrom) {
-            const [year, month, day] = this.dateFrom.split("-");
-            this.dateFrom = `${year}/${month}/${day}`;
-        }
-    },
-    formatDateTo() {
-        if (this.dateTo) {
-            const [year, month, day] = this.dateTo.split("-");
-            this.dateTo = `${year}/${month}/${day}`;
         }
     }
 };
