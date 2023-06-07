@@ -54,19 +54,47 @@
                 </div>
             </div>
 
-            <div class="mt-4 mx-4">
-                <label class="text-lg font-bold">Date From:</label>
-                <input type="date" v-model="dateFrom"
-                    class="py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
-            </div>
-            <div class="mt-2 mx-4">
-                <label class="text-lg font-bold">Date To:</label>
-                <input type="date" v-model="dateTo"
-                    class="py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
+            <div class="flex">
+                <div class="w-1/2 pr-4">
+                    <div class="mt-4 mx-4">
+                        <label class="text-lg font-bold">Date From:</label>
+                        <input type="date" v-model="dateFrom"
+                            class="py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
+                    </div>
+                    <div class="mt-2 mx-4">
+                        <label class="text-lg font-bold">Date To:</label>
+                        <input type="date" v-model="dateTo"
+                            class="py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
+                    </div>
+                </div>
+
+                <div class="w-1/2 pl-4">
+                    <div class="mt-4 mx-4">
+                        <label class="text-lg font-bold">Amount:</label>
+                        <input type="number" v-model="amount">
+                        <div class="flex items-center mt-2">
+                            <input type="radio" id="amountEquals" value="equals" v-model="amountComparison" class="mr-2">
+                            <label for="amountEquals" class="text-lg">Equals</label>
+                        </div>
+                        <div class="flex items-center mt-2">
+                            <input type="radio" id="amountGreaterThan" value="greaterThan" v-model="amountComparison"
+                                class="mr-2">
+                            <label for="amountGreaterThan" class="text-lg">Greater Than</label>
+                        </div>
+                        <div class="flex items-center mt-2">
+                            <input type="radio" id="amountLessThan" value="lessThan" v-model="amountComparison"
+                                class="mr-2">
+                            <label for="amountLessThan" class="text-lg">Less Than</label>
+                        </div>
+                        <div class="flex items-center mt-2">
+                            <input type="radio" id="amountReset" value="reset" v-model="amountComparison" class="mr-2">
+                            <label for="amountReset" class="text-lg">Reset</label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="flex">
-
                 <div class="w-1/2 pr-4">
                     <p class="text-2xl font-bold mt-4 mx-4">My Transactions</p>
 
@@ -144,7 +172,9 @@ export default {
             receivedTransactions: [],
             sortedTransactions: [],
             dateFrom: "",
-            dateTo: ""
+            dateTo: "",
+            amount: 0.0,
+            amountComparison: ''
         };
     }, watch: {
         dateFrom: {
@@ -161,6 +191,13 @@ export default {
             },
             deep: true,
         },
+        amountComparison: {
+            handler() {
+                this.fetchTransactions(this.currentAccount.iban);
+                this.fetchTransactions(this.savingsAccount.iban);
+            },
+            deep: true
+        }
     },
     mounted() {
         const token = localStorage.getItem('token');
@@ -188,14 +225,30 @@ export default {
         getSavingsAccount(bankAccounts) {
             return bankAccounts.find(account => account.type === 'SAVINGS') || null;
         },
+        returnNameOfVariable() {
+            if (this.amountComparison === 'equals') {
+                return 'amount';
+            } else if (this.amountComparison === 'greaterThan') {
+                return 'lowestAmount';
+            } else if (this.amountComparison === 'lessThan') {
+                return 'highestAmount';
+            } else if (this.amountComparison === 'reset') {
+                this.amount = 0.0;
+                this.amountComparison = '';
+            }
+        },
         fetchTransactions(accountIban) {
+            const paramName = this.returnNameOfVariable();
             this.sentTransactions = [];
             this.receivedTransactions = [];
             const token = localStorage.getItem('token');
             axios
-                .get("transactions?datefrom="+this.dateFrom+"&dateTo="+this.dateTo, {
+                .get("transactions", {
                     params: {
-                        accountFrom: accountIban
+                        accountFrom: accountIban,
+                        dateFrom: this.dateFrom,
+                        dateTo: this.dateTo,
+                        [paramName]: this.amount
                     },
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -241,8 +294,11 @@ export default {
         }
         ,
         sortTransactions(transactions) {
-            this.sortedTransactions = [];
-            this.sortedTransactions = transactions.sort((a, b) => b.timeStamp - a.timeStamp);
+            this.sortedTransactions = transactions.sort((a, b) => {
+                const dateA = new Date(a.timestamp);
+                const dateB = new Date(b.timestamp);
+                return dateB - dateA;
+            });
             return this.sortedTransactions;
         }
     }
