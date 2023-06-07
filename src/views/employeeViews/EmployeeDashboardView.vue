@@ -1,6 +1,7 @@
 <template>
     <main>
         <div class="h-screen container mx-auto py-8">
+            
             <div class="flex items-center justify-between">
                 <p class="text-4xl font-bold mx-5" style="margin-top: 7rem;">Welcome back to Inholland Bank, {{
                     user.firstName }}

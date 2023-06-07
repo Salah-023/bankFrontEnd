@@ -193,11 +193,9 @@ export default {
             this.receivedTransactions = [];
             const token = localStorage.getItem('token');
             axios
-                .get("transactions", {
+                .get("transactions?datefrom="+this.dateFrom+"&dateTo="+this.dateTo, {
                     params: {
-                        accountFrom: accountIban,
-                        dateFrom: this.dateFrom,
-                        dateTo: this.dateTo
+                        accountFrom: accountIban
                     },
                     headers: {
                         Authorization: `Bearer ${token}`
