@@ -191,12 +191,14 @@ export default {
             },
             deep: true,
         },
-        amountComparison: {
-            handler() {
+        amountComparison(newValue) {
+            if (newValue !== 'reset') {
                 this.fetchTransactions(this.currentAccount.iban);
                 this.fetchTransactions(this.savingsAccount.iban);
-            },
-            deep: true
+            } else {
+                this.amount = 0.0;
+                this.amountComparison = '';
+            }
         }
     },
     mounted() {
@@ -235,6 +237,7 @@ export default {
             } else if (this.amountComparison === 'reset') {
                 this.amount = 0.0;
                 this.amountComparison = '';
+                return null;
             }
         },
         fetchTransactions(accountIban) {
@@ -273,7 +276,8 @@ export default {
                     params: {
                         accountTo: accountIban,
                         dateFrom: this.dateFrom,
-                        dateTo: this.dateTo
+                        dateTo: this.dateTo,
+                        [paramName]: this.amount
                     },
                     headers: {
                         Authorization: `Bearer ${token}`
