@@ -23,7 +23,7 @@
                     <label for="amount" class="block mb-2 text-sm font-bold text-black">Amount:</label>
                     <input id="amount" type="text" class="w-64 px-3 py-2 border border-teal-500 rounded w-24" placeholder="100.00 €">
                 </div>
-                <router-link to="/customerDashboard"
+                <router-link to="/employeeDashboard"
                     class="mx-2 mt-4 rounded-md bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4">
                     Cancel
                 </router-link>
