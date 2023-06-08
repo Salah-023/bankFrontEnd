@@ -1,5 +1,5 @@
 <template>
-    <div class="h-700 container mx-auto py-8">
+    <div class="container mx-auto py-8">
         <div class="mb-5" id="transaction-header">
             <h1 class="mt-5 mb-5 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">Make a Transaction
             </h1>
