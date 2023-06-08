@@ -76,5 +76,13 @@ h2 {
   background-color: #ffffff; /* Replace with your desired background color */
 }
 
+#transaction-heading {
+  margin-bottom: 2rem;
+}
+
+#transaction-options {
+  margin-top: 2rem;
+}
+
 
 
