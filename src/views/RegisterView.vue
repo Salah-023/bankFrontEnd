@@ -5,13 +5,14 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" >
+            <form class="space-y-6">
                 <div>
-                    <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900"  >First Name</label>
+                    <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
                     <div class="mt-2">
                         <input id="firstName" name="firstName" type="text" autocomplete="firstName" required="true"
                             placeholder="First Name"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="firstName"/>
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                            v-model="firstName" />
                     </div>
                 </div>
 
@@ -20,7 +21,8 @@
                     <div class="mt-2">
                         <input id="lastName" name="lastName" type="text" autocomplete="lastName" required="true"
                             placeholder="Last Name"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="lastName"/>
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                            v-model="lastName" />
                     </div>
                 </div>
 
@@ -29,7 +31,8 @@
                     <div class="mt-2">
                         <input id="email" name="email" type="email" autocomplete="email" required="true"
                             placeholder="example@email.com"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="email"/>
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                            v-model="email" />
                     </div>
                 </div>
 
@@ -38,7 +41,8 @@
                     <div class="mt-2">
                         <input id="phoneNumber" name="phoneNumber" type="tel" autocomplete="tel" required="true"
                             placeholder="+31 0 00000000"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="phone"/>
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                            v-model="phone" />
                     </div>
                 </div>
 
@@ -47,7 +51,8 @@
                     <div class="mt-2">
                         <input id="password" name="password" type="password" autocomplete="new-password" required="true"
                             placeholder="***********"
-                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6" v-model="password"/>
+                            class="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+                            v-model="password" />
                     </div>
                 </div>
 
@@ -74,6 +79,12 @@
                 <router-link to="/login" class="font-semibold leading-6 text-teal-600 hover:text-teal-500"
                     active-class="active">Click here to login</router-link>
             </p>
+            <div v-if="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                role="alert">
+                <span class="block sm:inline">{{ errorMessage }}</span>
+                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -88,10 +99,15 @@ export default {
             firstName: '',
             lastName: '',
             phone: '',
-            password: ''
+            password: '',
+            errorMessage: ''
         };
     }, methods: {
         register() {
+            if (this.email.trim() === '' || this.firstName.trim() === '' || this.lastName.trim() === '' || this.phone.trim() === '' || this.password.trim() === '') {
+                this.errorMessage = 'Please enter  all the required fields.';
+                return;
+            }
             axios.post("auth/register", {
                 email: this.email,
                 password: this.password,
@@ -102,7 +118,10 @@ export default {
                 .then(() => {
                     this.$router.push('/login');
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    console.log(error);
+                    this.errorMessage = error.response.data.message;
+                });
         }
     }
 }
