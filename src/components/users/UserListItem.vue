@@ -11,7 +11,8 @@
         <td class="py-2 px-4 border-b">{{ getCurrentAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">{{ getSavingsAccount(user.bankAccounts) }}</td>
         <td class="py-2 px-4 border-b">
-            <button v-if="hasNoBankAccounts" class="text-green-500 hover:text-green-700" @click="createBankAccount">Create
+            <button v-if="hasNoBankAccounts" class="text-green-500 hover:text-green-700"
+                @click="createBankAccount(user.id)">Create
                 B.A</button>
         </td>
         <td class="py-2 px-4 border-b">
@@ -59,21 +60,49 @@ export default {
                 })
                 .then((result) => {
                     console.log(result);
-                    this.$emit('update')
+                    this.$emit('update');
+                    this.$emit('popUpSuccessText', "User has been deleted successfully. ")
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => { console.log(error);
+                    this.$emit('popUpErrorText', "There was a problem while deleting the user. Please try again. ")
+                });
         },
-        createBankAccount() {
-            const bankAccountDTO = {                
-                absoluteLimit: 100.00,
-                balance: 0.00,
+        createBankAccount(id) {
+            const currentBankAccountDto = {
+                userId: id,
+                absoluteLimit: 100,
+                balance: 0,
                 type: "CURRENT"
-            };
-            axios.post("bankAccounts", bankAccountDTO, this.user.id)
+            }
+            axios.post("bankAccounts", currentBankAccountDto, {
+                headers: {
+                    Authorization: `Bearer ${this.store.getToken}`
+                }
+            })
+            .catch((error) => { console.log(error);
+                    this.$emit('popUpErrorText', "There was a problem while creating the Current Account. Please try again. ")
+                });
+
+
+
+            const savingsBankAccountDto = {
+                userId: id,
+                absoluteLimit: 100,
+                balance: 0,
+                type: "SAVINGS"
+            }
+            axios.post("bankAccounts", savingsBankAccountDto, {
+                headers: {
+                    Authorization: `Bearer ${this.store.getToken}`
+                }
+            })
                 .then(() => {
-                    this.$router.push('/users');
+                    this.$emit('update');
+                    this.$emit('popUpSuccessText', "Current and Savings Accounts created successfully for the customer. ")
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => { console.log(error);
+                    this.$emit('popUpErrorText', "There was a problem while creating the Savings Account. Please try again. ")
+                });
         }
     }, computed: {
         hasNoBankAccounts() {

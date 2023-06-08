@@ -12,6 +12,7 @@ import EmployeeDashboardView from '../views/employeeViews/EmployeeDashboardView.
 import MakeTransaction from '../components/transactions/MakeTransaction.vue'
 import TransactionList from '../components/transactions/TransactionList.vue'
 import SearchForIban from '../views/customerViews/SearchForIban.vue'
+import EmployeeMakeTransaction from '../components/transactions/EmployeeMakeTransactionView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -81,6 +82,11 @@ const router = createRouter({
       path: '/searchForIban',
       name: 'SearchForIban',
       component: SearchForIban
+    },
+    {
+      path: '/employeeMakeTransaction',
+      name: 'employeeMakeTransaction',
+      component: EmployeeMakeTransaction
     }
   ]
 })

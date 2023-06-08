@@ -18,18 +18,22 @@
                             <div class="rounded-lg bg-white p-4">
                                 <p class="text-lg text-center font-bold mb-2">Current Account</p>
                                 <p class="text-lg">IBAN: {{ currentAccount.iban }}</p>
-                                <p class="text-lg">Balance: {{ currentAccount.balance }}</p>
-                                <p class="text-lg">Limit: {{ currentAccount.absoluteLimit }}</p>
+                                <p class="text-lg">Balance: € {{ currentAccount.balance }}</p>
+                                <p class="text-lg">Limit: € {{ currentAccount.absoluteLimit }}</p>
                             </div>
                             <div class="rounded-lg bg-white p-4">
                                 <p class="text-lg text-center font-bold">Savings Account</p>
                                 <p class="text-lg">IBAN: {{ savingsAccount.iban }}</p>
-                                <p class="text-lg">Balance: {{ savingsAccount.balance }}</p>
-                                <p class="text-lg">Limit: {{ savingsAccount.absoluteLimit }}</p>
+                                <p class="text-lg">Balance: € {{ savingsAccount.balance }}</p>
+                                <p class="text-lg">Limit: € {{ savingsAccount.absoluteLimit }}</p>
                             </div>
-                        </div>
-                        <p>Total: {{ savingsAccount.balance + currentAccount.balance }}</p>
-                    </div>
+
+                        </div><div class="mt-3">
+  <p class=" text-xl font-bold">    
+    <span class="rounded bg-white-200 px-2 py-2">Total: € {{ savingsAccount.balance + currentAccount.balance }}</span>
+  </p>
+</div>
+
 
                 </div>
                 <div class="col-span-1">

@@ -72,5 +72,17 @@ h2 {
   margin-bottom: 3%;
   margin-top: 3%;
 }
+.bg-white-200 {
+  background-color: #ffffff; /* Replace with your desired background color */
+}
+
+#transaction-heading {
+  margin-bottom: 2rem;
+}
+
+#transaction-options {
+  margin-top: 2rem;
+}
+
 
 
