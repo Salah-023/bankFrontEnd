@@ -154,7 +154,7 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
-                    this.errorText = "There was a problem while saving the profile details. Please try again later.";
+                    this.errorText = "There was a problem while saving the profile details. Please try again.";
                     this.hasErrors = true;
                 });
         },
