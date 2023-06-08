@@ -61,10 +61,10 @@ export default {
                 .then((result) => {
                     console.log(result);
                     this.$emit('update');
-                    this.$emit('popUpDeleteSuccessText')
+                    this.$emit('popUpSuccessText', "User has been deleted successfully. ")
                 })
                 .catch((error) => { console.log(error);
-                    this.$emit('popUpDeleteErrorText')
+                    this.$emit('popUpErrorText', "There was a problem while deleting the user. Please try again. ")
                 });
         },
         createBankAccount(id) {
@@ -79,7 +79,12 @@ export default {
                     Authorization: `Bearer ${this.store.getToken}`
                 }
             })
-                .catch((error) => console.log(error));
+            .catch((error) => { console.log(error);
+                    this.$emit('popUpErrorText', "There was a problem while creating the Current Account. Please try again. ")
+                });
+
+
+
             const savingsBankAccountDto = {
                 userId: id,
                 absoluteLimit: 100,
@@ -92,9 +97,12 @@ export default {
                 }
             })
                 .then(() => {
-                    this.$emit('update')
+                    this.$emit('update');
+                    this.$emit('popUpSuccessText', "Current and Savings Accounts created successfully for the customer. ")
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => { console.log(error);
+                    this.$emit('popUpErrorText', "There was a problem while creating the Savings Account. Please try again. ")
+                });
         }
     }, computed: {
         hasNoBankAccounts() {

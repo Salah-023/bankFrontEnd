@@ -54,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <user-list-item v-for="user in users" :key="user.firstName" :user='user' @update="update" @popUpDeleteSuccessText = "popUpDeleteSuccessText" @popUpDeleteErrorText = "popUpDeleteErrorText"/>
+                        <user-list-item v-for="user in users" :key="user.firstName" :user='user' @update="update" @popUpSuccessText = "popUpSuccessText" @popUpErrorText = "popUpErrorText"/>
 
                     </tbody>
                 </table>
@@ -117,12 +117,12 @@ export default {
                 this.update();
             }
         },
-        popUpDeleteSuccessText(){
-            this.successText = "User has been deleted successfully. "
+        popUpSuccessText(text){
+            this.successText = text;
             this.hasSuccess = true;            
         },
-        popUpDeleteErrorText(){
-            this.errorText = "There was a problem while deleting the user. Please try again. "
+        popUpErrorText(text){
+            this.errorText = text;
             this.hasErrors = true;            
         }
     },
