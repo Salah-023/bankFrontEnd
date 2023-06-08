@@ -60,9 +60,12 @@ export default {
                 })
                 .then((result) => {
                     console.log(result);
-                    this.$emit('update')
+                    this.$emit('update');
+                    this.$emit('popUpDeleteSuccessText')
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => { console.log(error);
+                    this.$emit('popUpDeleteErrorText')
+                });
         },
         createBankAccount(id) {
             const currentBankAccountDto = {
