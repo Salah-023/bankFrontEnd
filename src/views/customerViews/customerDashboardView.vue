@@ -28,12 +28,14 @@
                                 <p class="text-lg">Limit: € {{ savingsAccount.absoluteLimit }}</p>
                             </div>
 
-                        </div><div class="mt-3">
-  <p class=" text-xl font-bold">    
-    <span class="rounded bg-white-200 px-2 py-2">Total: € {{ savingsAccount.balance + currentAccount.balance }}</span>
-  </p>
-</div>
-
+                        </div>
+                        <div class="mt-3">
+                            <p class=" text-xl font-bold">
+                                <span class="rounded bg-white-200 px-2 py-2">Total: € {{ savingsAccount.balance +
+                                    currentAccount.balance }}</span>
+                            </p>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="col-span-1">
