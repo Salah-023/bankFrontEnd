@@ -135,8 +135,9 @@ export default {
     },
     methods: {
         updateUser() {
-            if (this.user.firstName.trim() === '' && this.user.lastName.trim() === '' && this.user.email.trim() === '' && this.user.phone.trim() === '') {
+            if (this.user.firstName.trim() === '' || this.user.lastName.trim() === '' || this.user.email.trim() === '' || this.user.phone.trim() === '') {
                 this.errorText = 'Please fill in all the required fields, besides the password unless you want to change your password of course.';
+                this.hasErrors = true;
                 return;
             }
             const token = localStorage.getItem('token');
@@ -148,8 +149,10 @@ export default {
                 })
                 .then((res) => {
                     console.log(res.data);
-                    this.successText = "Profile details have been updated successfully. "
+                    this.successText = "Profile details have been updated successfully.";
                     this.hasSuccess = true;
+                    this.errorText = '';
+                    this.hasErrors=false;
                     this.$refs.form.reset();
                 })
                 .catch((error) => {
@@ -157,6 +160,8 @@ export default {
                     console.log(this.user);
                     this.errorText = "There was a problem while saving the profile details. Please try again.";
                     this.hasErrors = true;
+                    this.successText = "";
+                    this.hasSuccess = false;
                 });
         },
     },
