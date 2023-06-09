@@ -1,10 +1,35 @@
 <template>
-    <div class="container mx-auto py-8">
+    <div class="h-screen container mx-auto py-8">
         <div class="mb-5" id="transaction-header">
             <h1 class="mt-5 mb-5 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">Make a Transaction
             </h1>
         </div>
-
+        <div v-if="hasErrors" class="my-3 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert">
+            <strong class="font-bold"> Error: </strong>
+            <span class="block sm:inline" style="z-index: 1;">{{ errorText }}</span>
+            <span class="absolute top-0 right-0 mt-1 mr-1">
+                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20" @click="hasErrors = false">
+                    <title>Close</title>
+                    <path
+                        d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+            </span>
+        </div>
+        <div v-if="hasSuccess" class="my-3 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+            role="alert">
+            <strong class="font-bold"> Success: </strong>
+            <span class="block sm:inline" style="z-index: 1;">{{ successText }}</span>
+            <span class="absolute top-0 right-0 mt-1 mr-1">
+                <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20" @click="hasSuccess = false">
+                    <title>Close</title>
+                    <path
+                        d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+            </span>
+        </div>
         <div class="mt-5 grid grid-cols-5 gap-3" id="transaction-options">
             <div class="flex items-center pl-4 border border-teal-700 rounded" style="background-color: white;">
                 <input checked id="savingToCurrent" type="radio" value="1" name="bordered-radio"
@@ -52,11 +77,10 @@
         <div class="flex justify-center items-center ml-2 mt-5 mb-3">
             <span class="text-black text-3xl font-bold">Amount:</span>
             <input id="amount" type="text" placeholder="100.00"
-                class="pl-2 ml-4 bg-white border-gray-300 border focus:outline-none focus:ring-2 focus:ring-blue-500 w-24 h-8 rounded"/>
+                class="pl-2 ml-4 bg-white border-gray-300 border focus:outline-none focus:ring-2 focus:ring-blue-500 w-24 h-8 rounded" />
             <span class="text-black font-bold text-xl ml-3">€</span>
 
         </div>
-
         <div style="display: flex; justify-content: center;">
             <router-link to="/customerDashboard"
                 class="mx-2 mt-4 rounded-md bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4">
@@ -67,14 +91,7 @@
                 class="mx-2 mt-4 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4">
                 Confirm
             </button>
-
         </div>
-
-
-
-
-
-
     </div>
 </template>
 <script>
@@ -105,7 +122,11 @@ export default {
                 iban: ""
             },
             store: userStore(),
-            filterForSavingsAccount: false
+            filterForSavingsAccount: false,
+            errorText: '',
+            successText: '',
+            hasErrors: false,
+            hasSuccess: false
         };
     },
     mounted() {
@@ -123,7 +144,11 @@ export default {
                 this.currentAccount = this.getCurrentAccount(this.bankAccounts);
                 this.savingsAccount = this.getSavingsAccount(this.bankAccounts);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                    console.log(error);
+                    this.errorText = "There was a problem while getting the user details. Please try again. ";
+                    this.hasErrors = true;
+                });
     },
     methods: {
         getCurrentAccount(bankAccounts) {
@@ -150,13 +175,14 @@ export default {
                 })
                 .then((res) => {
                     console.log(res.data);
-                    if (this.store.getRoles.includes('ROLE_EMPLOYEE')) {
-                        this.$router.push("/employeeDashboard");
-                    } else if (this.store.getRoles.includes('ROLE_CUSTOMER')) {
-                        this.$router.push("/customerDashboard");
-                    }
+                    this.successText = "The transaction has been completed successfully. "
+                    this.hasSuccess = true;
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    console.log(error);
+                    this.errorText = "An error occurred during the transaction. Please try again.";
+                    this.hasErrors = true;
+                });
         }
     }
 };
