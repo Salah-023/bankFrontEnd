@@ -10,34 +10,32 @@
                     class="bg-white hover:bg-teal-500 text-teal-700 text-teal font-bold py-2 px-4 rounded"
                     active-class="active">To your Profile</router-link>
             </div>
-            <div class="grid grid-cols-2 gap-4 my-5">
+            <div class="grid grid-cols-1 gap-4 my-5 ">
                 <div class="col-span-1">
                     <router-link to="/bankAccountList"
                         class="w-full h-50 block bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mb-2"
                         style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
                         display: flex; justify-content: center; align-items: center; 
                         ">
-                        <img src="/transfer-icon.png" alt="Image" class="inline-block h-10 w-10 mr-5">
                         SEE ALL BANK ACCOUNTS
                     </router-link>
 
 
                     <router-link to="/users"
-                        class="w-full h-50 block bg-white text-teal-500 hover:text-teal-500 font-bold py-2 px-4 rounded mb-2"
+                        class="w-full h-50 block bg-orange-400 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mb-2"
                         style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
                         display: flex; justify-content: center; align-items: center; 
                         ">
-                        <img src="/search-icon.png" alt="Image" class="inline-block h-9 w-7 mr-5">
                         SEE ALL USERS
                     </router-link>
 
-                    <router-link to="/makeTransaction"
+                    <router-link to="/employeeMakeTransaction"
                         class="w-full h-50 block bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mb-2"
                         style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
                         display: flex; justify-content: center; align-items: center; 
                         ">
                         <img src="/transfer-icon.png" alt="Image" class="inline-block h-10 w-10 mr-5">
-                        Make a Transaction for a Customer
+                        MAKE A TRANSACTION FOR A CUSTOMER
                     </router-link>
 
                 </div>

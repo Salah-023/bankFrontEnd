@@ -40,16 +40,19 @@
                 <div class="mb-4">
                     <label for="fromAccount" class="block mb-2 text-sm font-bold text-black">From account IBAN:</label>
                     <input id="fromAccount" type="text" class="w-64 px-3 py-2 border border-teal-500 rounded"
+                        v-model="transaction.accountFrom.iban"
                         placeholder="Enter From Account IBAN">
                 </div>
                 <div class="mb-4">
                     <label for="toAccount" class="block mb-2 text-sm font-bold text-black">To account IBAN:</label>
                     <input id="toAccount" type="text" class="w-64 px-3 py-2 border border-teal-500 rounded"
+                        v-model="transaction.accountTo.iban"
                         placeholder="Enter To Account IBAN">
                 </div>
                 <div class="mb-4">
                     <label for="amount" class="block mb-2 text-sm font-bold text-black">Amount:</label>
                     <input id="amount" type="text" class="w-64 px-3 py-2 border border-teal-500 rounded w-24"
+                        v-model="transaction.amount"
                         placeholder="100.00 €">
                 </div>
                 <router-link to="/employeeDashboard"
@@ -57,7 +60,7 @@
                     Cancel
                 </router-link>
 
-                <button type="submit"
+                <button type="button" @click="makeTransaction()"
                     class="mx-2 mt-4 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4">
                     Confirm
                 </button>
@@ -67,18 +70,42 @@
 </template>
 
 <script>
+import axios from '../../axios-auth';
+import { userStore } from '../../stores/user.js';
 export default {
+    name: "EmployeeMakeTransaction",
     data() {
         return {
+            transaction: {
+                accountFrom: {
+                    iban: ""
+                },
+                accountTo: {
+                    iban: ""
+                },
+                amount: ""
+            },
             errorText: "aa",
             successText: "aa",
             hasErrors: false,
-            hasSuccess: false
+            hasSuccess: false,
+            store: userStore()
         };
     },
-    mounted() {
-
-
+    methods: {
+        makeTransaction() {
+            axios
+                .post("/transactions", this.transaction, {
+                    headers: {
+                    Authorization: `Bearer ${this.store.getToken}`
+                }
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    this.$router.push("/employeeDashboard")
+                })
+                .catch((error) => console.log(error));
+        }
     }
 };
 </script>
