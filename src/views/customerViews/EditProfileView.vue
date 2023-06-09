@@ -7,8 +7,7 @@
             </div>
 
             <div class="my-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <div v-if="hasErrors"
-                    class="my-3 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                <div v-if="hasErrors" class="my-3 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                     role="alert">
                     <strong class="font-bold"> Error: </strong>
                     <span class="block sm:inline" style="z-index: 1;">{{ errorText }}</span>
@@ -126,10 +125,7 @@ export default {
                 firstName: "",
                 lastName: "",
                 phone: "",
-                password: "",
-                dayLimit: 0.0,
-                transactionLimit: 0.0,
-
+                password: ""
             },
             errorText: '',
             successText: '',
@@ -139,6 +135,11 @@ export default {
     },
     methods: {
         updateUser() {
+            if (this.user.firstName.trim() === '' || this.user.lastName.trim() === '' || this.user.email.trim() === '' || this.user.phone.trim() === '') {
+                this.errorText = 'Please fill in all the required fields, besides the password unless you want to change your password of course.';
+                this.hasErrors = true;
+                return;
+            }
             const token = localStorage.getItem('token');
             axios
                 .put("/users/" + this.user.id, this.user, {
@@ -148,14 +149,19 @@ export default {
                 })
                 .then((res) => {
                     console.log(res.data);
-                    this.successText = "Profile details have been updated successfully. "
+                    this.successText = "Profile details have been updated successfully.";
                     this.hasSuccess = true;
+                    this.errorText = '';
+                    this.hasErrors=false;
                     this.$refs.form.reset();
                 })
                 .catch((error) => {
                     console.log(error);
+                    console.log(this.user);
                     this.errorText = "There was a problem while saving the profile details. Please try again.";
                     this.hasErrors = true;
+                    this.successText = "";
+                    this.hasSuccess = false;
                 });
         },
     },
@@ -172,6 +178,9 @@ export default {
             .then((result) => {
                 console.log(result);
                 this.user = result.data;
+                this.user.transactionLimit = null;
+                this.user.dayLimit = null;
+                console.log(this.user);
             })
             .catch((error) => console.log(error));
     }

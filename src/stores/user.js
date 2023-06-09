@@ -33,7 +33,7 @@ export const userStore = defineStore('userStore', {
                     resolve()
 
                 })
-                    .catch((error) => reject(error));
+                .catch((error) => reject(error));
             })
         },
         logout() {
