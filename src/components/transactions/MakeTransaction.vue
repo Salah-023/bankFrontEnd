@@ -158,6 +158,12 @@ export default {
             return bankAccounts.find(account => account.type === 'SAVINGS') || null;
         },
         makeTransaction() {
+            if (isNaN(this.transaction.amount) || this.transaction.amount < 0) {
+                this.errorText = "Please enter a valid amount.";
+                this.hasErrors = true;
+                return;
+            }
+            
             if (this.store.getRoles.includes('ROLE_CUSTOMER')) {
                 if (this.filterForSavingsAccount) {
                     this.transaction.accountFrom = this.savingsAccount;
