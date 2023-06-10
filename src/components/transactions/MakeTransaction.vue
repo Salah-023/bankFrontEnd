@@ -141,7 +141,7 @@ export default {
             errorText: '',
             successText: '',
             hasErrors: false,
-            hasSuccess: false
+            hasSuccess: false,
             transactionType: "1",
             receiverIban: "",
             store: userStore()
@@ -176,6 +176,12 @@ export default {
             return bankAccounts.find(account => account.type === 'SAVINGS') || null;
         },
         makeTransaction() {
+            if (isNaN(this.transaction.amount) || this.transaction.amount < 0) {
+                this.errorText = "Please enter a valid amount.";
+                this.hasErrors = true;
+                return;
+            }
+            
             console.log(typeof this.transactionType);
             switch (this.transactionType) {
                 case "1":
@@ -201,6 +207,8 @@ export default {
                 default:
                     break;
             };
+
+
             axios
                 .post("/transactions", this.transaction, {
                     headers: {
