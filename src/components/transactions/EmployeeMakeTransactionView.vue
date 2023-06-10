@@ -107,7 +107,7 @@ export default {
                     this.hasSuccess = true;
                     this.errorText = '';
                     this.hasErrors = false;
-                    this.$refs.form.reset();
+
                 })
                 .catch((error) => {
                     console.log(error);
