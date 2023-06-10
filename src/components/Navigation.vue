@@ -23,25 +23,25 @@
         active-class="active" :disabled="!isLoggedIn" v-tooltip="{ content: 'Must be logged in' }">Your dashboard</router-link>
 
         <router-link :to="{ path: isLoggedIn ? '/makeTransaction' : '#' }"
-          class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+          class="mr-4 block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
           :class="{ 'text-gray-400 cursor-not-allowed': !isLoggedIn }"
           active-class="active" :disabled="!isLoggedIn" v-tooltip="{ content: 'Must be logged in' }">Make transaction</router-link>
 
         <router-link v-if="this.store.getRoles.includes('ROLE_EMPLOYEE')" to="/bankAccountList"
-        class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+        class="mr-4 block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
         active-class="active">Bank account list</router-link>
 
-      <router-link v-if="this.store.getRoles.includes('ROLE_EMPLOYEE')" to="/users"
-        class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-        active-class="active">User list </router-link>
+        <router-link v-if="this.store.getRoles.includes('ROLE_EMPLOYEE')" to="/users"
+          class="mr-4 block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+          active-class="active">User list </router-link>
 
-      <router-link v-if="this.store.getRoles.includes('ROLE_EMPLOYEE')" to="/employeeDashboard"
-        class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-        active-class="active">Employee dashboard</router-link>
+        <router-link v-if="this.store.getRoles.includes('ROLE_EMPLOYEE')" to="/employeeDashboard"
+          class="mr-4 block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+          active-class="active">Employee dashboard  </router-link>
 
-      <router-link v-if="this.store.getRoles.includes('ROLE_EMPLOYEE')" to="/employeeMakeTransaction"
-        class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-        active-class="active">Employee transaction</router-link>
+        <router-link v-if="this.store.getRoles.includes('ROLE_EMPLOYEE')" to="/employeeMakeTransaction"
+          class="mr-4 block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+          active-class="active">Employee transaction</router-link>
       </div>
       <div>
         <button v-if="isLoggedIn" type="button" @click="logout"
