@@ -39,6 +39,14 @@
                         MAKE A TRANSACTION FOR A CUSTOMER
                     </router-link>
 
+                    <router-link to="/transactions"
+                        class="w-full h-50 block bg-orange-400 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mb-2"
+                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+                        display: flex; justify-content: center; align-items: center; 
+                        ">
+                        SEE ALL TRANSACTIONS
+                    </router-link>
+
                 </div>
             </div>
         </div>
