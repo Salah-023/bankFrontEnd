@@ -19,14 +19,17 @@
                                 <p class="text-lg text-center font-bold mb-2">Current Account</p>
                                 <p class="text-lg">IBAN: {{ currentAccount.iban }}</p>
                                 <p class="text-lg">Balance: € {{ currentAccount.balance }}</p>
-                                <p class="text-lg">Limit: € {{ currentAccount.absoluteLimit }}</p>
+                                <p class="text-lg">Amount remaining for today: € {{ amountRemaining }}</p>
+                                <p class="text-lg">Absolute Limit: € {{ currentAccount.absoluteLimit }}</p>
+                                <p class="text-lg">Transaction Limit: € {{ user.transactionLimit }}</p>
+                                <p class="text-lg">Daily Limit: € {{ user.dayLimit }}</p>
 
                             </div>
                             <div class="rounded-lg bg-white p-4">
                                 <p class="text-lg text-center font-bold">Savings Account</p>
                                 <p class="text-lg">IBAN: {{ savingsAccount.iban }}</p>
                                 <p class="text-lg">Balance: € {{ savingsAccount.balance }}</p>
-                                <p class="text-lg">Limit: € {{ savingsAccount.absoluteLimit }}</p>
+                                <p class="text-lg">Absolute Limit: € {{ savingsAccount.absoluteLimit }}</p>
                             </div>            
                         </div>
                         <div class="mt-3">
@@ -180,7 +183,8 @@ export default {
             dateFrom: "",
             dateTo: "",
             amount: 0.0,
-            amountComparison: ''
+            amountComparison: '',
+            amountRemaining: 0.0
         };
     }, watch: {
         dateFrom: {
@@ -223,6 +227,7 @@ export default {
                 this.savingsAccount = this.getSavingsAccount(this.bankAccounts);
                 this.fetchTransactions(this.currentAccount.iban);
                 this.fetchTransactions(this.savingsAccount.iban);
+                this.amountRemainingForToday();
             })
             .catch((error) => console.log(error));
     },
@@ -310,6 +315,9 @@ export default {
                 return dateB - dateA;
             });
             return this.sortedTransactions;
+        },
+        amountRemainingForToday() {
+            this.amountRemaining = this.user.dayLimit;
         }
     }
 };

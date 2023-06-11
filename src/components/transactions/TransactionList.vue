@@ -11,12 +11,21 @@
                 <input type="date" v-model="dateTo" class="border border-gray-300 rounded px-2 py-1">
             </div>
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border border-gray-300">
-                    <!-- Table contents... -->
-                </table>
+                <table class="mt-3 min-w-full bg-white border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 border-b">Iban of Sender</th>
+                                <th class="py-2 px-4 border-b">Iban of Receiver</th>
+                                <th class="py-2 px-4 border-b">Amount</th>
+                                <th class="py-2 px-4 border-b">Date of Transaction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <transaction-list-item v-for="transaction in transactions" :key="transaction.ibanOfSender"
+                                :transaction='transaction' />
+                        </tbody>
+                    </table>
             </div>
-            <router-link to="/register" class="font-semibold leading-6 text-teal-600 hover:text-teal-500"
-                active-class="active">Make Transaction</router-link>
         </div>
     </main>
 </template>
