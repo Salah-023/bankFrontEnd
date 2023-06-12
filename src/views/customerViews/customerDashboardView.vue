@@ -19,7 +19,7 @@
                                 <p class="text-lg text-center font-bold mb-2">Current Account</p>
                                 <p class="text-lg">IBAN: {{ currentAccount.iban }}</p>
                                 <p class="text-lg">Balance: € {{ currentAccount.balance }}</p>
-                                <p class="text-lg">Amount remaining for today: € {{ amountRemaining }}</p>
+                                <!-- <p class="text-lg">Amount remaining for today: € {{ amountRemaining }}</p> -->
                                 <p class="text-lg">Absolute Limit: € {{ currentAccount.absoluteLimit }}</p>
                                 <p class="text-lg">Transaction Limit: € {{ user.transactionLimit }}</p>
                                 <p class="text-lg">Daily Limit: € {{ user.dayLimit }}</p>
@@ -30,6 +30,8 @@
                                 <p class="text-lg">IBAN: {{ savingsAccount.iban }}</p>
                                 <p class="text-lg">Balance: € {{ savingsAccount.balance }}</p>
                                 <p class="text-lg">Absolute Limit: € {{ savingsAccount.absoluteLimit }}</p>
+                                <p class="text-lg">Transaction Limit: € {{ user.transactionLimit }}</p>
+                                <p class="text-lg">Daily Limit: € {{ user.dayLimit }}</p>
                             </div>            
                         </div>
                         <div class="mt-3">
