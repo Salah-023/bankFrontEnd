@@ -105,12 +105,6 @@
                 <router-link to="/login" class="font-semibold leading-6 text-teal-600 hover:text-teal-500"
                     active-class="active">Click here to login</router-link>
             </p>
-            <div v-if="errorMessage" class="mt-3 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                role="alert">
-                <span class="block sm:inline">{{ errorMessage }}</span>
-                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                </span>
-            </div>
         </div>
     </div>
 </template>
@@ -126,7 +120,6 @@ export default {
             lastName: '',
             phone: '',
             password: '',
-            errorMessage: '',
             errorText: '',
             successText: '',
             hasErrors: false,
@@ -135,14 +128,16 @@ export default {
     }, methods: {
         register() {
             if (this.email.trim() === '' || this.firstName.trim() === '' || this.lastName.trim() === '' || this.phone.trim() === '' || this.password.trim() === '') {
-                this.errorMessage = 'Please enter  all the required fields.';
+                this.errorText = 'Please enter  all the required fields.';
+                this.hasErrors = true;
                 return;
             }
 
             const passwordInput = document.getElementById('password');
             const confirmPasswordInput = document.getElementById('confirm_password');
             if (passwordInput.value !== confirmPasswordInput.value) {
-                this.errorMessage = 'Please make sure your passwords match.';
+                this.errorText = 'Please make sure your passwords match.';
+                this.hasErrors = true;
                 return;
             }
 
@@ -159,10 +154,9 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
-                    this.errorText = "There was a problem while creating your account. Please try again.";
+                    this.errorText = error.response.data.message;
                     this.hasErrors = true;
-                    this.errorMessage = error.response.data.message;
-                });
+    });
         }
     }
 }

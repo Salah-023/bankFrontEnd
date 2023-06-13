@@ -41,9 +41,9 @@
           active-class="active">Click here to register</router-link>
       </p>
 
-      <div v-if="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+      <div v-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
         role="alert">
-        <span class="block sm:inline">{{ errorMessage }}</span>
+        <span class="block sm:inline">{{ error }}</span>
         <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
         </span>
       </div>
@@ -61,7 +61,7 @@ export default {
       username: '',
       password: '',
       store: userStore(),
-      errorMessage: ''
+      error: ''
     };
   },
   methods: {
@@ -86,9 +86,9 @@ export default {
     handleRequestError(error) {
       if (error.response) {
         if (error.response.status === 400) {
-          this.errorMessage = error.response.data.message;
+          this.error = error.response.data.message;
         } else {
-          this.errorMessage = " An error occurred. Please try again later.";
+          this.error = "An error occurred. Please try again later.";
         }
       }
     }
